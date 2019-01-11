@@ -1,0 +1,174 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : cys
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : pure_music
+
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
+
+Date: 2018-10-10 15:29:06
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_account` varchar(20) NOT NULL,
+  `admin_name` varchar(25) NOT NULL,
+  `admin_password` varchar(20) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `class`
+-- ----------------------------
+DROP TABLE IF EXISTS `class`;
+CREATE TABLE `class` (
+  `class_id` int(4) NOT NULL AUTO_INCREMENT,
+  `class_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`class_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `sheet`
+-- ----------------------------
+DROP TABLE IF EXISTS `sheet`;
+CREATE TABLE `sheet` (
+  `sheet_id` int(12) NOT NULL AUTO_INCREMENT,
+  `sheet_name` varchar(50) DEFAULT NULL,
+  `sheet_image_url` varchar(500) DEFAULT NULL,
+  `sheet_song_nums` int(10) DEFAULT NULL,
+  `sheet_list` text,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`sheet_id`,`user_id`),
+  KEY `user_id` (`user_id`),
+  KEY `sheet_id` (`sheet_id`),
+  CONSTRAINT `sheet_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sheet
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `sheet_comments`
+-- ----------------------------
+DROP TABLE IF EXISTS `sheet_comments`;
+CREATE TABLE `sheet_comments` (
+  `comment_id` int(8) NOT NULL AUTO_INCREMENT,
+  `comment_content` text,
+  `user_name` varchar(20) NOT NULL,
+  `comment_time` datetime(6) DEFAULT NULL,
+  `sheet_id` int(12) NOT NULL,
+  PRIMARY KEY (`comment_id`,`user_name`,`sheet_id`),
+  KEY `user_name` (`user_name`),
+  KEY `sheet_id` (`sheet_id`),
+  CONSTRAINT `sheet_comments_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `user` (`user_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sheet_comments_ibfk_2` FOREIGN KEY (`sheet_id`) REFERENCES `sheet` (`sheet_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sheet_comments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `singer`
+-- ----------------------------
+DROP TABLE IF EXISTS `singer`;
+CREATE TABLE `singer` (
+  `singer_id` int(12) NOT NULL AUTO_INCREMENT,
+  `singer_name` varchar(50) NOT NULL,
+  `singer_sex` varchar(4) DEFAULT NULL,
+  `singer_image_url` varchar(500) DEFAULT NULL,
+  `singer_introduction` text,
+  `singer_departure_time` datetime(6) DEFAULT NULL,
+  `singer_address` varchar(100) DEFAULT NULL,
+  `singer_birthday` datetime(6) DEFAULT NULL,
+  `singer_hits` int(20) DEFAULT NULL,
+  PRIMARY KEY (`singer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of singer
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `song`
+-- ----------------------------
+DROP TABLE IF EXISTS `song`;
+CREATE TABLE `song` (
+  `song_id` int(12) NOT NULL AUTO_INCREMENT,
+  `song_name` varchar(50) DEFAULT NULL,
+  `song_url` varchar(500) DEFAULT NULL,
+  `song_words_url` varchar(500) DEFAULT NULL,
+  `song_image_url` varchar(500) DEFAULT NULL,
+  `song_time` bigint(20) DEFAULT NULL,
+  `song_issue_date` datetime(6) DEFAULT NULL,
+  `song_hits` int(20) DEFAULT NULL,
+  `class_id` int(4) DEFAULT NULL,
+  PRIMARY KEY (`song_id`),
+  KEY `class_id` (`class_id`),
+  CONSTRAINT `song_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`class_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of song
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `song_comments`
+-- ----------------------------
+DROP TABLE IF EXISTS `song_comments`;
+CREATE TABLE `song_comments` (
+  `comment_id` int(8) NOT NULL AUTO_INCREMENT,
+  `comment_content` text,
+  `user_name` varchar(20) NOT NULL,
+  `comment_time` datetime(6) DEFAULT NULL,
+  `song_id` int(12) NOT NULL,
+  PRIMARY KEY (`comment_id`,`user_name`,`song_id`),
+  KEY `user_name` (`user_name`),
+  KEY `song_id` (`song_id`),
+  CONSTRAINT `song_comments_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `user` (`user_name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `song_comments_ibfk_2` FOREIGN KEY (`song_id`) REFERENCES `song` (`song_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of song_comments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `user`
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_account` varchar(20) NOT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
+  `user_password` varchar(20) NOT NULL,
+  `user_sex` varchar(4) DEFAULT NULL,
+  `user_email` varchar(50) DEFAULT NULL,
+  `user_introduction` text,
+  `user_phone` varchar(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `user_name` (`user_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------

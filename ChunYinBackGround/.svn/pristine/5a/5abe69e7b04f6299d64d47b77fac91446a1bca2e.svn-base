@@ -1,0 +1,145 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.UserExample;
+import com.chunyin.bean.UserExample.Criteria;
+import com.chunyin.bean.UserWithBLOBs;
+import com.chunyin.dao.UserMapper;
+
+@Service
+public class UserService {
+
+	@Autowired
+	UserMapper userMapper;
+
+	/**
+	 * 查询所有用户
+	 */
+	public List<UserWithBLOBs> selectOnePageUser() {
+		return userMapper.selectByExampleWithBLOBs(new UserExample());
+	}
+
+	/**
+	 * 按id查询并返回用户
+	 */
+	public UserWithBLOBs selectUserById(int id) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserIdEqualTo(id);
+		return userMapper.selectByExampleWithBLOBs(userExample).get(0);
+	}
+	
+	/**
+	 * 按用户名查询并返回用户
+	 * @param account
+	 * @return
+	 */
+	public UserWithBLOBs selectUserByAccount(String account) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account);
+		return userMapper.selectByExampleWithBLOBs(userExample).get(0);
+	}
+
+
+
+	/**
+	 * 按账户模糊查询
+	 */
+	public List<UserWithBLOBs> selectUserByAccountLike(String account) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		String Account = "%"+account+"%";
+		criteria.andUserAccountLike(Account);
+		return userMapper.selectByExampleWithBLOBs(userExample);
+	}
+
+	
+	/**
+	 * 用户登录
+	 * 
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public int userLogin(String account, String password) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account).andUserPasswordEqualTo(password);
+		List<UserWithBLOBs> list = userMapper.selectByExampleWithBLOBs(userExample);
+		
+		return list.get(0).getUserId();
+	}
+
+	/**
+	 * 添加用户
+	 */
+	public int insertUser(UserWithBLOBs user) {
+		return userMapper.insert(user);
+	}
+
+	/**
+	 * 按id删除员工
+	 */
+	public int deleteUserById(int id) {
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 检查重复账号名
+	 */
+	public int checkUserAccount(String account) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account);
+
+		return userMapper.countByExample(userExample);
+	}
+
+	/**
+	 * 按id修改用户密码
+	 */
+	public int updateUserPassword(UserWithBLOBs user) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserIdEqualTo(user.getUserId());
+		UserWithBLOBs newUser = userMapper.selectByExampleWithBLOBs(userExample).get(0);
+		newUser.setUserPassword(user.getUserPassword());
+
+		return userMapper.updateByPrimaryKeyWithBLOBs(newUser);
+	}
+
+	/**
+	 * 按id修改用户信息
+	 */
+	public int updateUserInformation(UserWithBLOBs user) {
+		return userMapper.updateByPrimaryKeyWithBLOBs(user);
+	}
+
+	/**
+	 * 根据checkbox和id删除选中用户
+	 */
+	public void deleteUserByCheckBox(List<Integer> list) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserIdIn(list);
+
+		userMapper.deleteByExample(userExample);
+	}
+	
+	/**
+	 * 验证邮箱和账号
+	 */
+	public int checkUserAccountAndEmail(String account, String email) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account).andUserEmailEqualTo(email);
+		return userMapper.countByExample(userExample);
+	}
+
+	
+}

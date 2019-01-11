@@ -1,0 +1,171 @@
+package com.chunyin.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.chunyin.bean.Msg;
+import com.chunyin.bean.User;
+import com.chunyin.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+/**
+ * 用户controller
+ * 
+ * @author Administrator
+ *
+ */
+@Controller
+public class UserController {
+
+	@Autowired
+	UserService userService;
+
+	/**
+	 * 查询单个页面用户
+	 */
+	@ResponseBody
+	@RequestMapping("selectOnePageUser")
+	public Msg selectOnePageUser(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
+		PageHelper.startPage(pn, 5);
+
+		List<User> list = userService.selectOnePageUser();
+
+		PageInfo<User> pageInfo = new PageInfo<User>(list);
+
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 按id查询并返回用户
+	 */
+	@ResponseBody
+	@RequestMapping("selectUserById")
+	public Msg selectUserById(int id) {
+		User user = userService.selectUserById(id);
+		if (user != null) {
+			return Msg.success().add("user", user);
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 用户登录
+	 */
+	@ResponseBody
+	@RequestMapping("userLogin")
+	public Msg userLogin(String account, String password) {
+		int flag = userService.userLogin(account, password);
+		System.out.println(flag);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 添加用户
+	 */
+
+	@ResponseBody
+	@RequestMapping("insertUser")
+	public Msg insertUser(@Valid User user, BindingResult result) {
+		if (result.hasErrors()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<FieldError> list = result.getFieldErrors();
+			for (FieldError fieldError : list) {
+				map.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+			return Msg.error().add("msg", map);
+		}
+		userService.insertUser(user);
+
+		return Msg.success();
+	}
+
+	/**
+	 * 按id删除用户
+	 */
+	@ResponseBody
+	@RequestMapping("deleteUserById")
+	public Msg deleteUserById(int id) {
+		int flag = userService.deleteUserById(id);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 根据checkbox和id删除选中用户
+	 */
+	@ResponseBody
+	@RequestMapping("deleteUserByCheckBox")
+	public Msg deleteUserByCheckBox(String ids) {
+		if (ids.contains("-")) {
+			List<Integer> list = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String id : str_ids) {
+				list.add(Integer.parseInt(id));
+			}
+			userService.deleteUserByCheckBox(list);
+		} else {
+			userService.deleteUserById(Integer.parseInt(ids));
+		}
+		return Msg.success();
+	}
+
+	/**
+	 * 按id修改用户密码
+	 */
+	@ResponseBody
+	@RequestMapping("updateUserPassword")
+	public Msg updateUserPassword(int id, String password) {
+		int flag = userService.updateUserPassword(id, password);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 按id修改用户信息
+	 */
+	@ResponseBody
+	@RequestMapping("updateUserInformation")
+	public Msg updateUserInformation(User user) {
+		int flag = userService.updateUserInformation(user);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 检查重复账号名
+	 */
+	@ResponseBody
+	@RequestMapping("checkUserAccount")
+	public Msg checkUserAccount(String account) {
+		int flag = userService.checkUserAccount(account);
+		if (flag == 0) {// 如果未找到则账号可用，返回success
+			return Msg.success().add("msg", "账户名可用");
+		}
+		return Msg.error().add("msg", "账户名已被占用");
+	}
+}

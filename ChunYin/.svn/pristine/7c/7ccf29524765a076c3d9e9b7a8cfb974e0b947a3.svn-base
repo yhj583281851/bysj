@@ -1,0 +1,862 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+<meta charset="utf-8" />
+<title>Musik | Web Application</title>
+<meta name="description"
+	content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" href="js/jPlayer/jplayer.flat.css"
+	type="text/css" />
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="css/animate.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+<link rel="stylesheet" href="css/font.css" type="text/css" />
+<link rel="stylesheet" href="css/app.css" type="text/css" />
+<link rel="stylesheet" href="js/jPlayer/jplayer.flat.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="css/animate.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+<link rel="stylesheet" href="css/font.css" type="text/css" />
+<link rel="stylesheet" href="css/app.css" type="text/css" />
+
+<!--[if lt IE 9]>
+    <script src="js/ie/html5shiv.js"></script>
+    <script src="js/ie/respond.min.js"></script>
+    <script src="js/ie/excanvas.js"></script>
+  <![endif]-->
+</head>
+<body class="">
+
+	<!---------------------------------------------------------- 模态框（Modal）---------------------------------------------- -->
+	<div class="modal fade" id="update" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="background: url(./images/bg.jpg);">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+				</div>
+				<form id="form2">
+					<div class="modal-body">
+						<center>
+							用户账号：<input type="text" name="account" id="account" disabled="true" /> <br> <br> 
+								用户昵称：<input type="text" name="name" id="name" /> 
+								<span class="help-block" style="font-size:14px;margin-top:18px;">*昵称必须是2-5中文或6-19位英文和数字组合</span>
+								用户邮箱：<input type="text" name="email" id="email" /> 
+									<span class="help-block" style="font-size: 14px; margin-top: 18px;">*请输入正确的邮箱格式</span> 
+								电话号码：<input type="text" name="phone" id="phone" /> 
+									<span class="help-block" style="font-size: 14px; margin-top: 18px;">*请输入11位手机号码</span> 
+								用户性别：<input type="radio" name="sex" class="sex" id="man" value="男" />男 
+								      <input type="radio" name="sex" class="sex" id="women" value="女" />女 <br><br>      
+								      <span>个性签名： </span>
+							<textarea type="" name="introduction" id="introduction" rows="5"></textarea>
+					</div>
+				</form>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="modal_update_btn">提交更改</button>
+				</div>
+				</center>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	<!------------------------------------------------- 模态框（Modal）end ----------------------------------------------------------->
+
+	<section class="vbox">
+		<header
+			class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+			<div class="navbar-header aside bg-info dk">
+				<a class="btn btn-link visible-xs"
+					data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+					<i class="icon-list"></i>
+				</a> <a href="index.html" class="navbar-brand text-lt"> <i
+					class="icon-earphones"></i> <img src="images/logo.png" alt="."
+					class="hide"> <span class="hidden-nav-xs m-l-sm">Musik</span>
+				</a> <a class="btn btn-link visible-xs" data-toggle="dropdown"
+					data-target=".user"> <i class="icon-settings"></i>
+				</a>
+			</div>
+			<ul class="nav navbar-nav hidden-xs">
+				<li><a href="#nav,.navbar-header"
+					data-toggle="class:nav-xs,nav-xs" class="text-muted"> <i
+						class="fa fa-indent text"></i> <i class="fa fa-dedent text-active"></i>
+				</a></li>
+			</ul>
+			<form
+				class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs"
+				role="search">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button type="submit"
+								class="btn btn-sm bg-white btn-icon rounded">
+								<i class="fa fa-search"></i>
+							</button>
+						</span> <input type="text"
+							class="form-control input-sm no-border rounded"
+							placeholder="Search songs, albums...">
+					</div>
+				</div>
+			</form>
+			<div class="navbar-right ">
+				<ul class="nav navbar-nav m-n hidden-xs nav-user user">
+					<li class="hidden-xs"><a href="#" class="dropdown-toggle lt"
+						data-toggle="dropdown"> <i class="icon-bell"></i> <span
+							class="badge badge-sm up bg-danger count">2</span>
+					</a>
+						<section class="dropdown-menu aside-xl animated fadeInUp">
+							<section class="panel bg-white">
+								<div class="panel-heading b-light bg-light">
+									<strong>You have <span class="count">2</span>
+										notifications
+									</strong>
+								</div>
+								<div class="list-group list-group-alt">
+									<a href="#" class="media list-group-item"> <span
+										class="pull-left thumb-sm"> <img src="images/a0.png"
+											alt="..." class="img-circle">
+									</span> <span class="media-body block m-b-none"> Use awesome
+											animate.css<br> <small class="text-muted">10
+												minutes ago</small>
+									</span>
+									</a> <a href="#" class="media list-group-item"> <span
+										class="media-body block m-b-none"> 1.0 initial released<br>
+											<small class="text-muted">1 hour ago</small>
+									</span>
+									</a>
+								</div>
+								<div class="panel-footer text-sm">
+									<a href="#" class="pull-right"><i class="fa fa-cog"></i></a> <a
+										href="#notes" data-toggle="class:show animated fadeInRight">See
+										all the notifications</a>
+								</div>
+							</section>
+						</section></li>
+					<li class="dropdown"><a href="#"
+						class="dropdown-toggle bg clear" data-toggle="dropdown"> <span
+							class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+								<img src="images/a0.png" alt="...">
+						</span> John.Smith <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu animated fadeInRight">
+							<li id="ChangePassword"><span class="arrow top"></span> <a>ChangePassword</a>
+							</li>
+							<li id="profile"><a>Profile</a></li>
+							<li><a href="#"> <span
+									class="badge bg-danger pull-right">3</span> Notifications
+							</a></li>
+							<li><a href="docs.html">Help</a></li>
+							<li class="divider"></li>
+							<li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a>
+							</li>
+						</ul></li>
+				</ul>
+			</div>
+		</header>
+		<section>
+			<section class="hbox stretch">
+				<!-- .aside -->
+				<aside class="bg-black dk aside hidden-print" id="nav">
+					<section class="vbox">
+						<section class="w-f-md scrollable">
+							<div class="slim-scroll" data-height="auto"
+								data-disable-fade-out="true" data-distance="0" data-size="10px"
+								data-railOpacity="0.2">
+
+
+
+								<!-- nav -->
+								<nav class="nav-primary hidden-xs">
+									<ul class="nav bg clearfix">
+										<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+											Discover</li>
+										<li><a href="index.html"> <i
+												class="icon-disc icon text-success"></i> <span
+												class="font-bold">What's new</span>
+										</a></li>
+										<li><a href="genres.html"> <i
+												class="icon-music-tone-alt icon text-info"></i> <span
+												class="font-bold">Genres</span>
+										</a></li>
+										<li><a href="events.html"> <i
+												class="icon-drawer icon text-primary-lter"></i> <b
+												class="badge bg-primary pull-right">6</b> <span
+												class="font-bold">Events</span>
+										</a></li>
+										<li><a href="listen.html"> <i
+												class="icon-list icon  text-info-dker"></i> <span
+												class="font-bold">Listen</span>
+										</a></li>
+										<li><a href="video.html" data-target="#content"
+											data-el="#bjax-el" data-replace="true"> <i
+												class="icon-social-youtube icon  text-primary"></i> <span
+												class="font-bold">Video</span>
+										</a></li>
+										<li class="m-b hidden-nav-xs"></li>
+									</ul>
+									<ul class="nav" data-ride="collapse">
+										<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+											Interface</li>
+										<li><a href="#" class="auto"> <span
+												class="pull-right text-muted"> <i
+													class="fa fa-angle-left text"></i> <i
+													class="fa fa-angle-down text-active"></i>
+											</span> <i class="icon-screen-desktop icon"> </i> <span>Layouts</span>
+										</a>
+											<ul class="nav dk text-sm">
+												<li><a href="layout-color.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Color
+															option</span>
+												</a></li>
+												<li><a href="layout-boxed.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Boxed
+															layout</span>
+												</a></li>
+												<li><a href="layout-fluid.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Fluid
+															layout</span>
+												</a></li>
+											</ul></li>
+										<li><a href="#" class="auto"> <span
+												class="pull-right text-muted"> <i
+													class="fa fa-angle-left text"></i> <i
+													class="fa fa-angle-down text-active"></i>
+											</span> <i class="icon-chemistry icon"> </i> <span>UI Kit</span>
+										</a>
+											<ul class="nav dk text-sm">
+												<li><a href="buttons.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Buttons</span>
+												</a></li>
+												<li><a href="icons.html" class="auto"> <b
+														class="badge bg-info pull-right">369</b> <i
+														class="fa fa-angle-right text-xs"></i> <span>Icons</span>
+												</a></li>
+												<li><a href="http://www.weidea.net" class="auto"> <b
+														class="badge bg-info pull-right">369</b> <i
+														class="fa fa-angle-right text-xs"></i> <span>More</span>
+												</a></li>
+												<li><a href="grid.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Grid</span>
+												</a></li>
+												<li><a href="widgets.html" class="auto"> <b
+														class="badge bg-dark pull-right">8</b> <i
+														class="fa fa-angle-right text-xs"></i> <span>Widgets</span>
+												</a></li>
+												<li><a href="components.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Components</span>
+												</a></li>
+												<li><a href="list.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>List
+															group</span>
+												</a></li>
+												<li><a href="#table" class="auto"> <span
+														class="pull-right text-muted"> <i
+															class="fa fa-angle-left text"></i> <i
+															class="fa fa-angle-down text-active"></i>
+													</span> <i class="fa fa-angle-right text-xs"></i> <span>Table</span>
+												</a>
+													<ul class="nav dker">
+														<li><a href="table-static.html"> <i
+																class="fa fa-angle-right"></i> <span>Table static</span>
+														</a></li>
+														<li><a href="table-datatable.html"> <i
+																class="fa fa-angle-right"></i> <span>Datatable</span>
+														</a></li>
+													</ul></li>
+												<li><a href="#form" class="auto"> <span
+														class="pull-right text-muted"> <i
+															class="fa fa-angle-left text"></i> <i
+															class="fa fa-angle-down text-active"></i>
+													</span> <i class="fa fa-angle-right text-xs"></i> <span>Form</span>
+												</a>
+													<ul class="nav dker">
+														<li><a href="form-elements.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	elements</span>
+														</a></li>
+														<li><a href="form-validation.html"> <i
+																class="fa fa-angle-right"></i> <span>Form
+																	validation</span>
+														</a></li>
+														<li><a href="form-wizard.html"> <i
+																class="fa fa-angle-right"></i> <span>Form wizard</span>
+														</a></li>
+													</ul></li>
+												<li><a href="chart.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Chart</span>
+												</a></li>
+												<li><a href="portlet.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Portlet</span>
+												</a></li>
+												<li><a href="timeline.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Timeline</span>
+												</a></li>
+											</ul></li>
+										<li class="active"><a href="#" class="auto"> <span
+												class="pull-right text-muted"> <i
+													class="fa fa-angle-left text"></i> <i
+													class="fa fa-angle-down text-active"></i>
+											</span> <i class="icon-grid icon"> </i> <span>Pages</span>
+										</a>
+											<ul class="nav dk text-sm">
+												<li class="active"><a href="profile.html" class="auto">
+														<i class="fa fa-angle-right text-xs"></i> <span>Profile</span>
+												</a></li>
+												<li><a href="blog.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Blog</span>
+												</a></li>
+												<li><a href="invoice.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Invoice</span>
+												</a></li>
+												<li><a href="gmap.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Google
+															Map</span>
+												</a></li>
+												<li><a href="jvectormap.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Vector
+															Map</span>
+												</a></li>
+												<li><a href="signin.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Signin</span>
+												</a></li>
+												<li><a href="signup.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>Signup</span>
+												</a></li>
+												<li><a href="404.html" class="auto"> <i
+														class="fa fa-angle-right text-xs"></i> <span>404</span>
+												</a></li>
+											</ul></li>
+									</ul>
+									<ul class="nav text-sm">
+										<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+											<span class="pull-right"><a href="#"><i
+													class="icon-plus i-lg"></i></a></span> Playlist
+										</li>
+										<li><a href="#"> <i class="icon-music-tone icon"></i>
+												<span>Hip-Pop</span>
+										</a></li>
+										<li><a href="#"> <i
+												class="icon-playlist icon text-success-lter"></i> <b
+												class="badge bg-success dker pull-right">9</b> <span>Jazz</span>
+										</a></li>
+									</ul>
+								</nav>
+								<!-- / nav -->
+							</div>
+						</section>
+
+						<footer class="footer hidden-xs no-padder text-center-nav-xs">
+							<div class="bg hidden-xs ">
+								<div class="dropdown dropup wrapper-sm clearfix">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<span class="thumb-sm avatar pull-left m-l-xs"> <img
+											src="images/a3.png" class="dker" alt="..."> <i
+											class="on b-black"></i>
+									</span> <span class="hidden-nav-xs clear"> <span
+											class="block m-l"> <strong class="font-bold text-lt">John.Smith</strong>
+												<b class="caret"></b>
+										</span> <span class="text-muted text-xs block m-l">Art
+												Director</span>
+									</span>
+									</a>
+									<ul class="dropdown-menu animated fadeInRight aside text-left">
+										<li id="ChangePassword"><span
+											class="arrow bottom hidden-nav-xs"></span> <a>ChangePassword</a></li>
+										<li id="profile"><a>Profile</a></li>
+										<li><a href="#"> <span
+												class="badge bg-danger pull-right">3</span> Notifications
+										</a></li>
+										<li><a href="docs.html">Help</a></li>
+										<li class="divider"></li>
+										<li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</footer>
+					</section>
+				</aside>
+				<!-- /.aside -->
+				<section id="content">
+					<section class="vbox">
+						<section class="scrollable">
+							<section class="hbox stretch">
+								<aside class="aside-lg bg-light lter b-r">
+									<section class="vbox">
+										<section class="scrollable">
+											<div class="wrapper">
+												<div class="text-center m-b m-t">
+													<a href="#" class="thumb-lg"> <img src="images/a0.png"
+														class="img-circle">
+													</a>
+													<div>
+														<div class="h3 m-t-xs m-b-xs"></div>
+
+													</div>
+												</div>
+												<div class="panel wrapper">
+													<div class="row text-center">
+														<div class="col-xs-6">
+															<a href="#"> <span class="m-b-xs h4 block">245</span>
+																<small class="text-muted">Followers</small>
+															</a>
+														</div>
+														<div class="col-xs-6">
+															<a href="#"> <span class="m-b-xs h4 block">55</span>
+																<small class="text-muted">Following</small>
+															</a>
+														</div>
+													</div>
+												</div>
+												<div class="btn-group btn-group-justified m-b">
+													<a class="btn btn-success btn-rounded" data-toggle="button">
+														<span class="text"> <i class="fa fa-eye"></i>
+															Follow
+													</span> <span class="text-active"> <i class="fa fa-eye"></i>
+															Following
+													</span>
+													</a> <a class="btn btn-dark btn-rounded"> <i
+														class="fa fa-comment-o"></i> Chat
+													</a>
+												</div>
+												<div>
+													<small class="text-uc text-xs text-muted">about me</small>
+													<p>Artist</p>
+													<small class="text-uc text-xs text-muted">info</small>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+														elit. Morbi id neque quam. Aliquam sollicitudin venenatis
+														ipsum ac feugiat.</p>
+													<div class="line"></div>
+													<small class="text-uc text-xs text-muted">connection</small>
+													<p class="m-t-sm">
+														<a href="#" class="btn btn-rounded btn-twitter btn-icon"><i
+															class="fa fa-twitter"></i></a> <a href="#"
+															class="btn btn-rounded btn-facebook btn-icon"><i
+															class="fa fa-facebook"></i></a> <a href="#"
+															class="btn btn-rounded btn-gplus btn-icon"><i
+															class="fa fa-google-plus"></i></a>
+													</p>
+												</div>
+											</div>
+										</section>
+									</section>
+								</aside>
+								<aside class="bg-white">
+									<section class="vbox">
+										<header class="header bg-light lt">
+											<ul class="nav nav-tabs nav-white">
+												<li class="active"><a href="#activity"
+													data-toggle="tab">个人信息</a></li>
+												<div class="controls"
+													style="float: right; padding-top: 10px; padding-right: 10px;">
+													<button class="btn btn-info" style="display: inline"
+														id="edit_btn">编辑个人信息</button>
+												</div>
+											</ul>
+
+
+										</header>
+										<div class="form-group">
+											<div
+												class="form-control1 rounded input-lg text-center no-border">
+												<i
+													class="glyphicon glyphicon-user form-control-feedback pull-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="text"
+													style="border: 0px; outline: none; cursor: pointer;"
+													name="userAccount" id="user_account" value="">
+
+											</div>
+										</div>
+										<hr />
+
+										<div class="form-group">
+											<div
+												class="form-control1 rounded input-lg text-center no-border">
+												<i
+													class="glyphicon glyphicon-heart-empty form-control-feedback pull-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="text"
+													style="border: 0px; outline: none; cursor: pointer;"
+													id="user_name" name="userName" value="">
+
+											</div>
+										</div>
+										<hr />
+
+										<div class="form-group">
+											<div
+												class="form-control1 rounded input-lg text-center no-border">
+												<i
+													class="glyphicon glyphicon-star-empty form-control-feedback pull-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="" name="userSex"
+													style="border: 0px; outline: none; cursor: pointer;"
+													id="user_sex" value="">
+											</div>
+										</div>
+										<hr />
+
+										<div class="form-group">
+											<div
+												class="form-control1 rounded input-lg text-center no-border">
+												<i
+													class="glyphicon glyphicon-envelope form-control-feedback pull-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="text" name="userEmail"
+													style="border: 0px; outline: none; cursor: pointer;"
+													id="user_email" value="">
+
+											</div>
+										</div>
+										<hr />
+
+										<div class="form-group">
+											<div
+												class="form-control1 rounded input-lg text-center no-border">
+												<i
+													class="glyphicon glyphicon-phone form-control-feedback pull-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="text" name="userPhone"
+													style="border: 0px; outline: none; cursor: pointer;"
+													id="user_phone" value="">
+
+											</div>
+										</div>
+										<hr />
+
+
+
+										<div class="form-group">
+											<div class="form-control1 rounded input-lg no-border ">
+												<i
+													class="glyphicon glyphicon-tag form-control-feedback pull-left"></i><span>个性签名</span>
+												<!-- <input type="text" name="userIntroduction"
+													style="border: 0px; outline: none; cursor: pointer;"
+													id="user_introduction" value=""> -->
+												<br>
+												<br>
+												<textarea name="userIntroduction" id="user_introduction"
+													style="width: 100%; border: 0px; outline: none; cursor: pointer;"
+													class="form-control" rows="5"></textarea>
+											</div>
+										</div>
+
+										<section class="scrollable">
+											<div class="tab-content">
+												<div class="tab-pane active" id="activity">
+													<ul
+														class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+
+													</ul>
+												</div>
+												<div class="tab-pane" id="events">
+													<div class="text-center wrapper">
+														<i class="fa fa-spinner fa fa-spin fa fa-large"></i>
+													</div>
+												</div>
+												<div class="tab-pane" id="interaction">
+													<div class="text-center wrapper">
+														<i class="fa fa-spinner fa fa-spin fa fa-large"></i>
+													</div>
+												</div>
+
+											</div>
+
+
+										</section>
+
+
+									</section>
+
+								</aside>
+								<aside class="col-lg-3 b-l">
+									<section class="vbox">
+										<section class="scrollable padder-v">
+											<div class="panel">
+												<h4 class="font-thin padder">Latest Tweets</h4>
+												<ul class="list-group">
+													<li class="list-group-item">
+														<p>
+															Wellcome <a href="#" class="text-info">@Drew Wllon</a>
+															and play this web application template, have fun1
+														</p> <small class="block text-muted"><i
+															class="fa fa-clock-o"></i> 2 minuts ago</small>
+													</li>
+													<li class="list-group-item">
+														<p>
+															Morbi nec <a href="#" class="text-info">@Jonathan
+																George</a> nunc condimentum ipsum dolor sit amet,
+															consectetur
+														</p> <small class="block text-muted"><i
+															class="fa fa-clock-o"></i> 1 hour ago</small>
+													</li>
+													<li class="list-group-item">
+														<p>
+															<a href="#" class="text-info">@Josh Long</a> Vestibulum
+															ullamcorper sodales nisi nec adipiscing elit. Morbi id
+															neque quam. Aliquam sollicitudin venenatis
+														</p> <small class="block text-muted"><i
+															class="fa fa-clock-o"></i> 2 hours ago</small>
+													</li>
+												</ul>
+											</div>
+											<div class="panel clearfix">
+												<div class="panel-body">
+													<a href="#" class="thumb pull-left m-r"> <img
+														src="images/a0.png" class="img-circle">
+													</a>
+													<div class="clear">
+														<a href="#" class="text-info">@Mike Mcalidek <i
+															class="fa fa-twitter"></i></a> <small
+															class="block text-muted">2,415 followers / 225
+															tweets</small> <a href="#" class="btn btn-xs btn-success m-t-xs">Follow</a>
+													</div>
+												</div>
+											</div>
+										</section>
+									</section>
+								</aside>
+							</section>
+						</section>
+					</section>
+					<a href="#" class="hide nav-off-screen-block"
+						data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+				</section>
+			</section>
+		</section>
+	</section>
+	<script src="js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.js"></script>
+	<!-- App -->
+	<script src="js/app.js"></script>
+	<script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+	<script src="js/app.plugin.js"></script>
+	<script type="text/javascript" src="js/jPlayer/jquery.jplayer.min.js"></script>
+	<script type="text/javascript"
+		src="js/jPlayer/add-on/jplayer.playlist.min.js"></script>
+	<script type="text/javascript" src="js/jPlayer/demo.js"></script>
+
+	<script>
+		show_infomation();
+
+		function show_infomation() {
+			var url = location.search;
+			var id = url.substr(1);
+
+			$.ajax({
+				url : "http://localhost:8080/ChunYinBackGround/selectUserById",
+				data : "id=" + id,
+				type : "post",
+				dataType : "jsonp",
+				success : function(datas) {
+					var user = datas.data.user;
+					var id = user.userId;
+					var account = user.userAccount;
+					var name = user.userName;
+					var email = user.userEmail;
+					var phone = user.userPhone;
+					var sex = user.userSex;
+					var introduction = user.userIntroduction;
+
+					$("#user_account").attr("value", account);
+					$("#user_name").attr("value", name);
+					$("#user_email").attr("value", email);
+					$("#user_phone").attr("value", phone);
+					$("#user_sex").attr("value", sex);
+					$("#user_introduction").val(introduction);
+					$("#edit_btn").attr("edit_id", id);
+
+				},
+				error : function() {
+				}
+			});
+		}
+
+		$("#profile").click(function() {
+			var url = location.search;
+			var id = url.substr(1);
+			window.location.href = "profile.jsp?" + id;
+		});
+
+		$("#ChangePassword").click(function() {
+			var url = location.search;
+			var id = url.substr(1);
+			window.location.href = "changePassword.jsp?" + id;
+			return false;
+
+		});
+
+		//正则表达式校验账号密码邮箱
+		function validate_add_form() {
+			//进行校验
+			//校验昵称
+			var name = $("#name").val();
+			//用户名可以是2-5位中文或6-19位英文和数字的组合
+			var reg = /(^[a-zA-Z0-9_-]{6,19}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			if (!reg.test(name)) {
+				show_validate_msg($("#name"), "error",
+						"昵称必须是2-5中文或6-19位英文和数字组合");
+				return false;
+			} else {
+				show_validate_msg($("#name"), "success", "");
+			}
+
+			//校验邮箱
+			var email = $("#email").val();
+			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!reg.test(email)) {
+				show_validate_msg($("#email"), "error", "请输入正确的邮箱格式");
+				return false;
+			} else {
+				show_validate_msg($("#email"), "success", "");
+			}
+			
+			
+			//校验手机号码
+			
+			var phone = $("#phone").val();
+			if(phone==""){
+				return true;
+			}else{
+				var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+				if (!reg.test(phone)) {
+					show_validate_msg($("#phone"), "error", "请输入11位手机号码");
+					return false;
+				} else {
+					show_validate_msg($("#phone"), "success", "");
+				}
+			}
+			
+			
+			return true;
+		}
+
+		//清空表单样式及内容
+		function reset_form(ele) {
+			//清除input输入内容
+			$(ele)[0].reset();
+			//清除父div容器样式
+			$(ele).find("*").removeClass("has-success has-error");
+			//清空span内容 
+			$(ele).find(".help-block").text("");
+		}
+
+		//显示校验结果提示信息
+		function show_validate_msg(ele, status, msg) {
+			//清空当前元素的检验状态
+			$("#name").parent().removeClass("has-success has-error");
+			$("#email").parent().removeClass("has-success has-error");
+			$("#phone").parent().removeClass("has-success has-error");
+
+			if ("success" == status) {
+				//
+				$(ele).parent().addClass("has-success");
+
+				$(ele).next("span").text(msg);
+			} else if ("error" == status) {
+				//让父容器变色 
+				$(ele).parent().addClass("has-error");
+				//$("#msg").css("color","red");
+				//给span赋值错误信息
+				$(ele).next("span").text(msg);
+			}
+		}
+
+		//触发模态框的同时调用此方法  
+		function editInfo(edit_id) {
+			var id = edit_id;
+			var account = $("#user_account").val();
+			var name = $("#user_name").val();
+			var email = $("#user_email").val();
+			var phone = $("#user_phone").val();
+			var introduction = $("#user_introduction").val();
+			var sex = $("#user_sex").val();
+
+			//向模态框中传值  
+			$('#account').val(account);
+			$('#name').val(name);
+			$('#email').val(email);
+			$('#phone').val(phone);
+			$('#introduction').val(introduction);
+			if (sex == '女') {
+				document.getElementById('women').checked = true;
+			} else {
+				document.getElementById('man').checked = true;
+			}
+			$('#update').modal('show');
+		}
+
+		$("#edit_btn").click(function() {
+			editInfo($(this).attr("edit_id"));
+			$("#modal_update_btn").attr("edit_id", $(this).attr("edit_id"));
+
+			$("#update").modal({
+				backdrop : "static"
+			});
+
+		});
+
+		//提交更改  
+		$("#modal_update_btn")
+				.click(
+						function() {
+							 if (!validate_add_form()) {
+						 			return false;
+						 		} 
+						     
+						
+							//获取模态框数据  
+							var id = $(this).attr("edit_id");
+							var account = $('#account').val();
+							var name = $('#name').val();
+							var email = $('#email').val();
+							var phone = $('#phone').val();
+							var introduction = $('#introduction').val();
+							var sex = $('input:radio[name="sex"]:checked')
+									.val();
+							 var password = 123456; 
+							var data = "userId=" + id + "&userAccount="
+									+ account + "&userName=" + name
+									+ "&userPassword=" + password
+									+ "&userEmail=" + email + "&userPhone="
+									+ phone + "&userIntroduction="
+									+ introduction + "&userSex=" + sex;
+							$
+									.ajax({
+
+										url : "http://localhost:8080/ChunYinBackGround/updateUserInformation",
+										data : data,
+										type : "post",
+										dataType : "jsonp",
+										success : function(data) {
+
+											if (data.code == 100) {
+												alert("修改成功");
+												window.location.href = "profile.jsp?"
+														+ id;
+
+											} else {
+												alert("修改失败");
+											}
+											return true;
+										},
+										error : function() {
+											alert("error");
+										}
+									});
+							return false;
+						});
+	</script>
+
+</body>
+</html>

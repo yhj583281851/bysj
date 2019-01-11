@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>找回密码</title>
+<link rel="stylesheet" href="forgetPass/css/lrtk.css">
+</head>
+<body>
+<!-- 代码 开始 -->
+<div id="login">
+    <div class="wrapper">
+        <div class="login">
+            <form method="post" class="container offset1 loginform">
+                <div id="owl-login">
+                    <div class="hand"></div>
+                    <div class="hand hand-r"></div>
+                    <div class="arms">
+                        <div class="arm"></div>
+                        <div class="arm arm-r"></div>
+                    </div>
+                </div>
+                <div class="pad">
+                    <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="account" class="glyphicon glyphicon-user control-label"></label>
+                            <input id="account" type="text" name="userAccount" placeholder="请输入账号" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="email" class="glyphicon glyphicon-envelope control-label"></label>
+                            <input id="email" type="email" name="userEmail" placeholder="请输入邮箱" tabindex="1" autofocus="autofocus" class="form-control input-medium">                       		
+                        </div>
+                    </div>
+                    <div class="controls">
+                    <input type="captcha" v-on="blur:captchaCheck" class="form-control flat" placeholder="邮箱验证码" style="width:205px;display:inline;">
+                     <button v-on="click:onSubmit" class="btn btn-info" style="display:inline">获取邮箱验证码</button>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="password" class="glyphicon glyphicon-lock control-label"></label>
+                            <input id="password" type="password" name="password" placeholder="请输入新密码" tabindex="2" class="form-control input-medium">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions" >
+                   <center><button  type="submit" tabindex="4" class="btn btn-info">修改密码</button></center>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script>
+    $(function() {
+
+        $('#login #password').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    
+    
+    
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+package com.chunyin.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.chunyin.service.Song_commentsService;
+
+/**
+ * 歌曲评论controller
+ * @author Administrator
+ *
+ */
+@Controller
+public class Song_commentsController {
+
+	@Autowired
+	Song_commentsService song_commentsService;
+	
+	
+}

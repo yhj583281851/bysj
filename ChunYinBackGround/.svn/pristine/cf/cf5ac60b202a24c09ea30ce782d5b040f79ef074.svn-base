@@ -1,0 +1,99 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.Admin;
+import com.chunyin.bean.AdminExample;
+import com.chunyin.bean.UserExample;
+import com.chunyin.bean.AdminExample.Criteria;
+import com.chunyin.dao.AdminMapper;
+
+@Service
+public class AdminService {
+
+	@Autowired
+	AdminMapper adminMapper;
+	
+	/**
+	 * 查询所有管理员
+	 */
+	public List<Admin> selectOnePageAdmin() {
+		return adminMapper.selectByExample(new AdminExample());
+	}
+
+	/**
+	 * 按id查询并返回管理员
+	 */
+	public Admin selectAdminById(int id) {
+		return adminMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * 管理员登录
+	 * 
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public int adminLogin(String account, String password) {
+		AdminExample adminExample = new AdminExample();
+		Criteria criteria = adminExample.createCriteria();
+		criteria.andAdminAccountEqualTo(account).andAdminPasswordEqualTo(password);
+		return adminMapper.countByExample(adminExample);
+	}
+	
+	/**
+	 * 添加管理员
+	 */
+	public int insertAdmin(Admin Admin) {
+		return adminMapper.insert(Admin);
+	}
+
+	/**
+	 * 按id删除管理员
+	 */
+	public int deleteAdminById(int id) {
+		return adminMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 检查重复账号名
+	 */
+	public int checkAdminAccount(String account) {
+		AdminExample AdminExample = new AdminExample();
+		Criteria criteria = AdminExample.createCriteria();
+		criteria.andAdminAccountEqualTo(account);
+		
+		return adminMapper.countByExample(AdminExample);
+	}
+
+	/**
+	 * 按id修改管理员密码
+	 */
+	public int updateAdminPassword(int id, String password) {
+		Admin Admin = adminMapper.selectByPrimaryKey(id);
+		Admin.setAdminPassword(password);
+		return adminMapper.updateByPrimaryKey(Admin);
+	}
+
+	/**
+	 * 按id修改管理员信息
+	 */
+	public int updateAdminInformation(Admin Admin) {
+		return adminMapper.updateByPrimaryKey(Admin);
+	}
+
+	/**
+	 * 根据checkbox和id删除选中管理员
+	 */
+	public void deleteAdminByCheckBox(List<Integer> list) {
+		AdminExample AdminExample = new AdminExample();
+		Criteria criteria = AdminExample.createCriteria();
+		criteria.andAdminIdIn(list);
+		
+		adminMapper.deleteByExample(AdminExample);
+	}
+}

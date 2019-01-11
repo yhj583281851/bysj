@@ -1,0 +1,18 @@
+package com.chunyin.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.chunyin.service.SingerService;
+
+/**
+ * 歌手controller
+ * @author Administrator
+ *
+ */
+@Controller
+public class SingerController {
+
+	@Autowired
+	SingerService singerService;
+}

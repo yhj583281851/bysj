@@ -1,0 +1,127 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form id="form1">
+	歌名：<input type="text" name="songName"><br>
+	作曲人：<input type="text" name="composerName"><br>
+	类别：<select id="class" name="className">
+		<option value="1">安静</option>
+		<option value="2">浪漫</option>
+		<option value="3">伤感</option>
+		<option value="4">治愈</option>
+		<option value="5">放松</option>
+		<option value="6">孤独</option>
+		<option value="7">感动</option>
+		<option value="8">兴奋</option>
+		<option value="9">快乐</option>
+		<option value="10">思念</option>
+		<option value="11">清新</option>
+	</select><br>
+	歌曲链接：<input type="text" name="songUrl"><br>
+	封面链接：<input type="text" name="songImageUrl"><br>
+	<button type="button" id="add-music">添加</button>
+
+	</form>
+	<button type="button" id="login-button">登录</button>
+	
+	<input type="hidden" name="keepCode" id="keepCode" value="gzh" />
+		<div class="form-group" style="" id="emailDiv">
+			<label for="input_email"> <span
+				class="glyphicon glyphicon-envelope"></span>&nbsp; <label
+				for="email">密保邮箱</label></label> <input class="form-control input-lg"
+				id="account" name="account" placeholder="请输入要找回的账号" type="text"
+				value=""> <input class="form-control input-lg" id="email"
+				name="email" placeholder="请输入注册的密保邮箱！" type="text" value="">
+			<button type="button" id="sendCodeBtn">发送</button>
+			<input class="form-control input-lg" onchange="codeValid();"
+				id="code" name="code" placeholder="请输入获得的验证码！" type="text" value="">
+		</div>
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0"
+		width=330 height=86
+		src="//music.163.com/outchain/player?type=2&id=38019965&auto=1&height=66"></iframe>
+
+	<script src="js/jquery-1.12.4.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$("#login-button").click(function(event) {
+			setTimeout('loginUser()', 1000);
+		});
+
+		function loginUser() {
+			alert("111");
+			$
+					.ajax({
+						url : "http://172.27.3.78:8080/ChunYinBackGround/selectOnePageUser",
+						data : "pn=1",
+						type : "post",
+						dataType : "jsonp",
+						success : function(datas) {
+							$.each(datas.data.pageInfo.list, function(index,
+									value) {
+								alert(index + ":" + value.userId + ":"
+										+ value.userAccount + ":"
+										+ value.userName + ":"
+										+ value.userPassword + ":"
+										+ value.userIntroduction);
+							});
+
+						},
+						error : function() {
+
+						}
+					});
+		}
+		
+		$("#add-music").click(function(){
+			$.ajax({
+				url:"http://172.27.3.78:8080/ChunYinBackGround/insertSong",
+				data:$('#form1').serialize(),
+				type:'POST',
+				dataType:"jsonp",
+				success:function(datas){
+					
+				},
+				error:function(){
+					
+				}
+			});
+		});
+		
+		$("#sendCodeBtn").click(function(){
+			var email = $("#email").val();
+			var account = $("#account").val();
+			var string = "account="+account+"&email="+email;
+			alert(string);
+			$.ajax({
+				url:"http://172.27.3.78:8080/ChunYinBackGround/checkUserAccountAndEmail",
+				data:string,
+				type:"post",
+				dataType:"jsonp",
+				success:function(datas){
+					var code = datas.data.code;
+					if (code != null && typeof (code) != "undefined") {
+	                    var mailCode = code;
+	                    $("#keepCode").attr("value", code);
+					}
+				},
+				error:function(){
+					
+				}
+			});
+		});
+		       
+		function codeValid(){
+			var keepCode = $("#keepCode").val();
+			var code = $("#code").val();
+			if(code == keepCode){
+				alert("验证码正确");
+			}
+		}
+	</script>
+</body>
+</html>

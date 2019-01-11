@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunyin.dao.ComposerMapper">
+  <resultMap id="BaseResultMap" type="com.chunyin.bean.Composer">
+    <id column="composer_id" jdbcType="INTEGER" property="composerId" />
+    <result column="composer_name" jdbcType="VARCHAR" property="composerName" />
+    <result column="composer_sex" jdbcType="VARCHAR" property="composerSex" />
+    <result column="composer_image_url" jdbcType="VARCHAR" property="composerImageUrl" />
+    <result column="composer_departure_time" jdbcType="TIMESTAMP" property="composerDepartureTime" />
+    <result column="composer_address" jdbcType="VARCHAR" property="composerAddress" />
+    <result column="composer_birthday" jdbcType="TIMESTAMP" property="composerBirthday" />
+    <result column="composer_hits" jdbcType="INTEGER" property="composerHits" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chunyin.bean.Composer">
+    <result column="composer_introduction" jdbcType="LONGVARCHAR" property="composerIntroduction" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    composer_id, composer_name, composer_sex, composer_image_url, composer_departure_time, 
+    composer_address, composer_birthday, composer_hits
+  </sql>
+  <sql id="Blob_Column_List">
+    composer_introduction
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.chunyin.bean.ComposerExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from composer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.chunyin.bean.ComposerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from composer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from composer
+    where composer_id = #{composerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from composer
+    where composer_id = #{composerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chunyin.bean.ComposerExample">
+    delete from composer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chunyin.bean.Composer">
+    insert into composer (composer_id, composer_name, composer_sex, 
+      composer_image_url, composer_departure_time, 
+      composer_address, composer_birthday, composer_hits, 
+      composer_introduction)
+    values (#{composerId,jdbcType=INTEGER}, #{composerName,jdbcType=VARCHAR}, #{composerSex,jdbcType=VARCHAR}, 
+      #{composerImageUrl,jdbcType=VARCHAR}, #{composerDepartureTime,jdbcType=TIMESTAMP}, 
+      #{composerAddress,jdbcType=VARCHAR}, #{composerBirthday,jdbcType=TIMESTAMP}, #{composerHits,jdbcType=INTEGER}, 
+      #{composerIntroduction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chunyin.bean.Composer">
+    insert into composer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="composerId != null">
+        composer_id,
+      </if>
+      <if test="composerName != null">
+        composer_name,
+      </if>
+      <if test="composerSex != null">
+        composer_sex,
+      </if>
+      <if test="composerImageUrl != null">
+        composer_image_url,
+      </if>
+      <if test="composerDepartureTime != null">
+        composer_departure_time,
+      </if>
+      <if test="composerAddress != null">
+        composer_address,
+      </if>
+      <if test="composerBirthday != null">
+        composer_birthday,
+      </if>
+      <if test="composerHits != null">
+        composer_hits,
+      </if>
+      <if test="composerIntroduction != null">
+        composer_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="composerId != null">
+        #{composerId,jdbcType=INTEGER},
+      </if>
+      <if test="composerName != null">
+        #{composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="composerSex != null">
+        #{composerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="composerImageUrl != null">
+        #{composerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="composerDepartureTime != null">
+        #{composerDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="composerAddress != null">
+        #{composerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="composerBirthday != null">
+        #{composerBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="composerHits != null">
+        #{composerHits,jdbcType=INTEGER},
+      </if>
+      <if test="composerIntroduction != null">
+        #{composerIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chunyin.bean.ComposerExample" resultType="java.lang.Integer">
+    select count(*) from composer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update composer
+    <set>
+      <if test="record.composerId != null">
+        composer_id = #{record.composerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.composerName != null">
+        composer_name = #{record.composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.composerSex != null">
+        composer_sex = #{record.composerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.composerImageUrl != null">
+        composer_image_url = #{record.composerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.composerDepartureTime != null">
+        composer_departure_time = #{record.composerDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.composerAddress != null">
+        composer_address = #{record.composerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.composerBirthday != null">
+        composer_birthday = #{record.composerBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.composerHits != null">
+        composer_hits = #{record.composerHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.composerIntroduction != null">
+        composer_introduction = #{record.composerIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update composer
+    set composer_id = #{record.composerId,jdbcType=INTEGER},
+      composer_name = #{record.composerName,jdbcType=VARCHAR},
+      composer_sex = #{record.composerSex,jdbcType=VARCHAR},
+      composer_image_url = #{record.composerImageUrl,jdbcType=VARCHAR},
+      composer_departure_time = #{record.composerDepartureTime,jdbcType=TIMESTAMP},
+      composer_address = #{record.composerAddress,jdbcType=VARCHAR},
+      composer_birthday = #{record.composerBirthday,jdbcType=TIMESTAMP},
+      composer_hits = #{record.composerHits,jdbcType=INTEGER},
+      composer_introduction = #{record.composerIntroduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update composer
+    set composer_id = #{record.composerId,jdbcType=INTEGER},
+      composer_name = #{record.composerName,jdbcType=VARCHAR},
+      composer_sex = #{record.composerSex,jdbcType=VARCHAR},
+      composer_image_url = #{record.composerImageUrl,jdbcType=VARCHAR},
+      composer_departure_time = #{record.composerDepartureTime,jdbcType=TIMESTAMP},
+      composer_address = #{record.composerAddress,jdbcType=VARCHAR},
+      composer_birthday = #{record.composerBirthday,jdbcType=TIMESTAMP},
+      composer_hits = #{record.composerHits,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chunyin.bean.Composer">
+    update composer
+    <set>
+      <if test="composerName != null">
+        composer_name = #{composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="composerSex != null">
+        composer_sex = #{composerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="composerImageUrl != null">
+        composer_image_url = #{composerImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="composerDepartureTime != null">
+        composer_departure_time = #{composerDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="composerAddress != null">
+        composer_address = #{composerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="composerBirthday != null">
+        composer_birthday = #{composerBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="composerHits != null">
+        composer_hits = #{composerHits,jdbcType=INTEGER},
+      </if>
+      <if test="composerIntroduction != null">
+        composer_introduction = #{composerIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where composer_id = #{composerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chunyin.bean.Composer">
+    update composer
+    set composer_name = #{composerName,jdbcType=VARCHAR},
+      composer_sex = #{composerSex,jdbcType=VARCHAR},
+      composer_image_url = #{composerImageUrl,jdbcType=VARCHAR},
+      composer_departure_time = #{composerDepartureTime,jdbcType=TIMESTAMP},
+      composer_address = #{composerAddress,jdbcType=VARCHAR},
+      composer_birthday = #{composerBirthday,jdbcType=TIMESTAMP},
+      composer_hits = #{composerHits,jdbcType=INTEGER},
+      composer_introduction = #{composerIntroduction,jdbcType=LONGVARCHAR}
+    where composer_id = #{composerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chunyin.bean.Composer">
+    update composer
+    set composer_name = #{composerName,jdbcType=VARCHAR},
+      composer_sex = #{composerSex,jdbcType=VARCHAR},
+      composer_image_url = #{composerImageUrl,jdbcType=VARCHAR},
+      composer_departure_time = #{composerDepartureTime,jdbcType=TIMESTAMP},
+      composer_address = #{composerAddress,jdbcType=VARCHAR},
+      composer_birthday = #{composerBirthday,jdbcType=TIMESTAMP},
+      composer_hits = #{composerHits,jdbcType=INTEGER}
+    where composer_id = #{composerId,jdbcType=INTEGER}
+  </update>
+</mapper>

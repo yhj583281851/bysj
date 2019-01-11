@@ -1,0 +1,429 @@
+package com.chunyin.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.chunyin.bean.Msg;
+import com.chunyin.bean.Sheet;
+import com.chunyin.bean.Song;
+import com.chunyin.bean.UserWithBLOBs;
+import com.chunyin.service.SheetService;
+import com.chunyin.service.SongService;
+import com.chunyin.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+/**
+ * 歌单controller
+ * 
+ * @author Administrator
+ *
+ */
+@Controller
+public class SheetController {
+
+	@Autowired
+	SheetService sheetService;
+	
+	@Autowired
+	SongService songService;
+
+	/**
+	 * 按歌单id查询歌单
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectSheetBySheetId")
+	public Msg selectSheetBySheetId(int sheetId) {
+		Sheet sheet = sheetService.selectSheetBySheetId(sheetId);
+		if (sheet == null) {
+			return Msg.error();
+		}
+		String ids = sheet.getSheetList();
+		List<Integer> list = new ArrayList<Integer>();
+		List<Song> songs = new ArrayList<Song>();
+		if (ids.isEmpty()) {
+
+		}
+		if (ids.contains("-")) {
+
+			String[] str_ids = ids.split("-");
+			for (String song_id : str_ids) {
+				list.add(Integer.parseInt(song_id));
+			}
+			songs = sheetService.selectSheetSongByIds(list);
+		} else if (ids.isEmpty()) {
+			System.out.println("歌单里没有歌曲");
+		} else {
+			list.add(Integer.parseInt(ids));
+			songs = sheetService.selectSheetSongByIds(list);
+		}
+		Map<String, Object> sheetList = new HashMap<String, Object>();
+		sheetList.put("songList", songs);
+		sheetList.put("sheet", sheet);
+		return Msg.success().add("sheetList", sheetList);
+	}
+
+	/**
+	 * 按用户id查询歌单列表
+	 */
+	@ResponseBody
+	@RequestMapping("selectSheetsByUserId")
+	public Msg selectSheetsByUserId(int userId) {
+		List<Sheet> sheet = sheetService.selectSheetsByUserId(userId);
+		if (sheet == null) {
+			return Msg.error();
+		}
+		List<Map<String, Object>> SheetList = new ArrayList<Map<String, Object>>();
+
+		// 循环获取每个歌单里的歌曲列表
+		for (Sheet s : sheet) {
+			String ids = s.getSheetList();
+			List<Integer> list = new ArrayList<Integer>();
+
+			// 接收获取到的所有歌曲
+			List<Song> songs = new ArrayList<Song>();
+			if (ids.contains("-")) {// 多首歌曲的情况
+				String[] str_ids = ids.split("-");
+
+				for (String song_id : str_ids) {
+					list.add(Integer.parseInt(song_id));
+				}
+				songs = sheetService.selectSheetSongByIds(list);
+			} else if (ids.isEmpty()) {// 没有歌的情况
+				System.out.println("歌单里没有歌曲");
+			} else {// 只有一首歌的情况
+				list.add(Integer.parseInt(ids));
+				songs = sheetService.selectSheetSongByIds(list);
+			}
+			// 封装歌单信息和歌曲列表
+			Map<String, Object> sheetSong = new HashMap<String, Object>();
+			sheetSong.put("sheet", s);
+			sheetSong.put("songList", songs);
+
+			// 将封装的歌单map 添加到歌单列表
+			SheetList.add(sheetSong);
+		}
+		return Msg.success().add("SheetList", SheetList);
+	}
+
+	/**
+	 * 按歌单名模糊查询歌单
+	 * 
+	 * @param sheetId
+	 * @param userId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectSheetsByName")
+	public Msg selectSheetByName(@RequestParam(value = "pn", defaultValue = "1") Integer pn, String name) {
+		PageHelper.startPage(pn, 12);
+		// 获取查询到的所有歌单
+		List<Sheet> sheet = sheetService.selectSheetsByName(name);
+		if (sheet == null) {
+			return Msg.error();
+		}
+		// 歌单列表，每个map里是歌单信息和歌曲列表
+		List<Map<String, Object>> SheetList = new ArrayList<Map<String, Object>>();
+
+		// 循环获取每个歌单里的歌曲列表
+		for (Sheet s : sheet) {
+			String ids = s.getSheetList();
+			List<Integer> list = new ArrayList<Integer>();
+
+			// 接收获取到的所有歌曲
+			List<Song> songs = new ArrayList<Song>();
+			if (ids.contains("-")) {// 多首歌曲的情况
+				String[] str_ids = ids.split("-");
+
+				for (String song_id : str_ids) {
+					list.add(Integer.parseInt(song_id));
+				}
+				songs = sheetService.selectSheetSongByIds(list);
+			} else if (ids.isEmpty()) {// 没有歌的情况
+				System.out.println("歌单里没有歌曲");
+			} else {// 只有一首歌的情况
+				list.add(Integer.parseInt(ids));
+				songs = sheetService.selectSheetSongByIds(list);
+			}
+			// 封装歌单信息和歌曲列表
+			Map<String, Object> sheetSong = new HashMap<String, Object>();
+			sheetSong.put("sheet", s);
+			sheetSong.put("songList", songs);
+
+			// 将封装的歌单map 添加到歌单列表
+			SheetList.add(sheetSong);
+		}
+		PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(SheetList);
+		return Msg.success().add("pageInfo", pageInfo);
+	}
+
+	/**
+	 * 按用户id查询收藏歌单
+	 */
+	@ResponseBody
+	@RequestMapping("selectCollectSheetsByUserId")
+	public Msg selectCollectSheetsByUserId(int userId) {
+		UserService userService = new UserService();
+		List<UserWithBLOBs> userList = userService.selectUserById(userId);
+		if(userList.size()==0){
+			return Msg.error();
+		}
+		UserWithBLOBs user = userList.get(0);
+		
+		String sheetIds = user.getSheetIdList();
+		List<Integer> sheetlist = new ArrayList<Integer>();
+		List<Sheet> sheets = new ArrayList<Sheet>();//收藏歌单列表
+		
+		if (sheetIds.contains("-")) {// 多首歌曲的情况
+			String[] str_ids = sheetIds.split("-");
+			
+			for (String sheet_id : str_ids) {
+				sheetlist.add(Integer.parseInt(sheet_id));
+			}
+			sheets = sheetService.selectSheetsBySheetIds(sheetlist);
+		}else if (sheetIds.isEmpty()) {// 没有歌的情况
+			System.out.println("没有收藏歌单");
+			return Msg.error();
+		}else{
+			sheetlist.add(Integer.parseInt(sheetIds));
+			sheets = sheetService.selectSheetsBySheetIds(sheetlist);
+		}
+		
+		List<Map<String, Object>> SheetList = new ArrayList<Map<String, Object>>();
+
+		// 循环获取每个歌单里的歌曲列表
+		for (Sheet s : sheets) {
+			String ids = s.getSheetList();
+			List<Integer> list = new ArrayList<Integer>();
+
+			// 接收获取到的所有歌曲
+			List<Song> songs = new ArrayList<Song>();
+			if (ids.contains("-")) {// 多首歌曲的情况
+				String[] str_ids = ids.split("-");
+
+				for (String song_id : str_ids) {
+					list.add(Integer.parseInt(song_id));
+				}
+				songs = sheetService.selectSheetSongByIds(list);
+			} else if (ids.isEmpty()) {// 没有歌的情况
+				System.out.println("歌单里没有歌曲");
+			} else {// 只有一首歌的情况
+				list.add(Integer.parseInt(ids));
+				songs = sheetService.selectSheetSongByIds(list);
+			}
+			// 封装收藏歌单的歌单信息和歌曲列表
+			Map<String, Object> sheetSong = new HashMap<String, Object>();
+			sheetSong.put("sheet", s);
+			sheetSong.put("songList", songs);
+
+			// 将封装的收藏歌单  添加到收藏歌单列表
+			SheetList.add(sheetSong);
+		}
+		return Msg.success().add("SheetList", SheetList);
+	}
+	
+	/**
+	 * 新建歌单
+	 */
+	@ResponseBody
+	@RequestMapping("insertNewSheet")
+	public Msg insertNewSheet(String name, int userId) {
+		int flag = sheetService.insertNewSheet(name, userId);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 收藏歌单
+	 */
+	@ResponseBody
+	@RequestMapping("collectSheetBySheetId")
+	public Msg collectSheet(int sheetId,int userId){
+		UserService userService = new UserService();
+		List<UserWithBLOBs> userList = userService.selectUserById(userId);
+		if(userList.size()==0){
+			return Msg.error();
+		}
+		UserWithBLOBs user = userList.get(0);
+		
+		Sheet sheet = sheetService.selectSheetBySheetId(sheetId);
+		if(sheet == null){
+			return Msg.error();
+		}
+		
+		if(user.getSheetIdList().isEmpty()){
+			String sheetIdList = Integer.toString(sheetId);
+			user.setSheetIdList(sheetIdList);
+		}else{
+			String sheetIdList = user.getSheetIdList()+"-"+sheetId;
+			user.setSheetIdList(sheetIdList);
+			
+		}
+		userService.updateUserInformation(user);
+		return Msg.success();
+	}
+
+	/**
+	 * 修改歌单名字
+	 */
+	@ResponseBody
+	@RequestMapping("updateSheetNameById")
+	public Msg updateSheetNameById(String name, int id) {
+		int flag = sheetService.updateSheetNameById(name, id);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 添加歌曲到歌单
+	 */
+	@ResponseBody
+	@RequestMapping("insertSongToSheet")
+	public Msg insertSongToSheet(int songId, int sheetId) {
+		Sheet sheet = sheetService.selectSheetBySheetId(sheetId);
+		Song song = songService.selectSongById(songId);
+		if (sheet.getSheetSongNums() == 0 || sheet.getSheetList().isEmpty()) {
+			sheet.setSheetSongNums(1);
+			sheet.setSheetList(songId + "");
+
+		} else {
+			sheet.setSheetSongNums(sheet.getSheetSongNums() + 1);
+			sheet.setSheetList(sheet.getSheetList() + "-" + songId);
+		}
+		sheet.setSheetImageUrl(song.getSongImageUrl());
+		int flag = sheetService.updateSheetSongsBySheet(sheet);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+
+	/**
+	 * 删除歌单里的歌曲
+	 */
+	@ResponseBody
+	@RequestMapping("deleteSongFromSheet")
+	public Msg deleteSongFromSheet(int songId, int sheetId) {
+		Sheet sheet = sheetService.selectSheetBySheetId(sheetId);
+		
+		if(sheet.getSheetSongNums() == 0 || sheet.getSheetList().isEmpty()){
+			return Msg.error().add("massge", "歌单为空");
+		}
+		int nums = sheet.getSheetSongNums();
+		
+		String ids = sheet.getSheetList();
+		List<String> list = new ArrayList<String>();
+
+		if (ids.contains("-")) {// 多首歌曲的情况
+			String[] str_ids = ids.split("-");
+
+			for (String song_id : str_ids) {
+				if(Integer.parseInt(song_id)==songId){
+					nums--;
+					continue;
+				}	
+				list.add(song_id);
+			}
+			if(nums == sheet.getSheetSongNums()){//未找到与songId匹配的歌曲
+				return Msg.error().add("massge", "未找到该歌曲");
+			}
+			Song song = songService.selectSongById(Integer.parseInt(list.get(list.size()-1))); 
+			String sheetImageUrl = song.getSongImageUrl();
+			String newIds = String.join("-", list);
+			sheet.setSheetList(newIds);
+			sheet.setSheetSongNums(nums);
+			sheet.setSheetImageUrl(sheetImageUrl);
+		}else {// 只有一首歌的情况
+			if(songId != Integer.parseInt(ids)){//未找到与songId匹配的歌曲
+				return Msg.error().add("massge", "未找到该歌曲");
+			}
+			sheet.setSheetSongNums(0);
+			sheet.setSheetList("");
+			sheet.setSheetImageUrl("");
+		}
+		
+		int flag = sheetService.updateSheetSongsBySheet(sheet);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 删除歌单
+	 */
+	@ResponseBody
+	@RequestMapping("deleteSheetBysheetId")
+	public Msg deleteSheet(int sheetId){
+		int flag = sheetService.deleteSheet(sheetId);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 按歌单id删除收藏歌单
+	 */
+	@ResponseBody
+	@RequestMapping("deleteCollectedSheetBysheetId")
+	public Msg deleteCollectedSheetBysheetId(int sheetId,int userId){
+		UserService userService = new UserService();
+		List<UserWithBLOBs> userList = userService.selectUserById(userId);
+		if(userList.size()==0){
+			return Msg.error();
+		}
+		UserWithBLOBs user = userList.get(0);
+		
+		Sheet sheet = sheetService.selectSheetBySheetId(sheetId);
+		if(sheet == null){
+			return Msg.error().add("massge", "未找到该歌单400");
+		}
+		
+		String sheet_ids = user.getSheetIdList();
+		List<String> list = new ArrayList<String>();
+
+		if (sheet_ids.contains("-")) {// 多个收藏歌单的情况
+			String[] str_ids = sheet_ids.split("-");
+
+			for (String sheet_id : str_ids) {
+				if(Integer.parseInt(sheet_ids)==sheetId){
+					continue;
+				}	
+				list.add(sheet_id);
+			}
+			if(list.size() == str_ids.length){//未找到与songId匹配的歌曲
+				return Msg.error().add("massge", "未找到该歌单401");
+			}
+			
+			String newIds = String.join("-", list);
+			user.setSheetIdList(newIds);
+		}else {// 只有一个收藏歌单的情况
+			if(sheetId != Integer.parseInt(sheet_ids)){//未找到与songId匹配的歌曲
+				return Msg.error().add("massge", "未找到该歌单402");
+			}
+			user.setSheetIdList("");
+		}
+		
+		int flag = userService.updateUserInformation(user);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error().add("massge", "删除失败403");
+	}
+}

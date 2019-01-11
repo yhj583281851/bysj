@@ -1,0 +1,85 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="static/layui/css/layui.css">
+</head>
+<body>
+<button onclick="clickk()">123123</button>
+
+<script src="static/js/jquery-1.12.4.min.js"></script>
+<script src="static/layui/layui.js"></script>
+<script type="text/javascript">
+$(function(){
+	layui.use(['layer'],function(){
+		var layer = layui.layer;
+	});
+});
+
+	 function clickk(){
+		 layer.alert('真的要取消吗', {
+	        skin: 'layui-layer-molv' //样式类名  自定义样式
+	       ,closeBtn: 1    // 是否显示关闭按钮
+	       ,anim: 1 //动画类型
+	       ,btn: ['确定','取消'] //按钮
+	       ,icon: 6    // icon
+	       ,yes:function(){
+	            return $.ajax({
+	                // url:'http://up.kuman.cn/settle/cancel',
+	                url:'<?= $this->url('settle:cancel')?>',
+	                type:'get',
+	                dataType:'json',
+	                data:{id:id},
+	                success:function(data){
+	                    if(data==1){
+	                        layer.alert('取消成功',function () {
+	                            window.location.reload();
+	                        });
+	                    }else if(data==0){
+	                        layer.alert("取消失败,请重试或联系管理员");
+	                    }
+	                }
+	            });
+	        }
+	       ,btn2:function(){
+	            layer.msg('好的,暂时不给您取消提现');
+	       }
+	    }); 
+
+			
+	} 
+	
+	/* function a(){
+		var layer = layui.layer;
+		layer.open({
+			  title: '在线调试'
+			  ,content: '可以填写任意的layer代码'
+			});   
+	}
+	function b(){
+		
+		layer.msg('hello'); 
+	} */
+
+
+	/* $(function(){
+		//单选框用到了layui.form
+		layui.use(['layer', 'form'], function(){
+		  var layer = layui.layer;
+		  //,form = layui.form;
+		  //form.render();
+		  layer.msg('helloword');
+		});
+		
+	}) */
+	
+	function test(){
+		
+		layer.msg("testlay");
+	}
+</script>
+</body>
+</html>

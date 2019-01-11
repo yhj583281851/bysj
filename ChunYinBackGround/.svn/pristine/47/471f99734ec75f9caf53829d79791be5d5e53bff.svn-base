@@ -1,0 +1,14 @@
+package com.chunyin.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.dao.Sheet_commentsMapper;
+
+@Service
+public class Sheet_commentsService {
+
+	@Autowired
+	Sheet_commentsMapper sheet_commentsMapper;
+	
+}

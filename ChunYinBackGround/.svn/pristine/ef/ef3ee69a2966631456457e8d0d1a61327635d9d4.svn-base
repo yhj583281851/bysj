@@ -1,0 +1,33 @@
+package com.chunyin.bean;
+
+public class Sheet_commentsKey {
+    private Integer commentId;
+
+    private String userName;
+
+    private Integer sheetId;
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Integer getSheetId() {
+        return sheetId;
+    }
+
+    public void setSheetId(Integer sheetId) {
+        this.sheetId = sheetId;
+    }
+}

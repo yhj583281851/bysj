@@ -1,0 +1,135 @@
+package com.chunyin.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.chunyin.bean.Msg;
+import com.chunyin.bean.Song_comments;
+import com.chunyin.service.Song_commentsService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+/**
+ * 歌曲评论controller
+ * @author Administrator
+ *
+ */
+@Controller
+public class Song_commentsController {
+
+	@Autowired
+	Song_commentsService song_commentsService;
+	
+	/**
+	 * 增添新评论
+	 */
+	@ResponseBody
+	@RequestMapping("insertSongComments")
+	public Msg insertSongComments(Song_comments song_commnets){
+		int flag = song_commentsService.insertSongComments(song_commnets);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 增添回复评论
+	 */
+	@ResponseBody
+	@RequestMapping("insertSongCommentsAnswer")
+	public Msg insertSongCommentsAnswer(Song_comments song_commnets){
+		Song_comments song_comment = song_commentsService.insertSongCommentsAnswer(song_commnets);
+		if (song_comment != null) {
+			return Msg.success().add("song_comment", song_comment);//返回被回复的评论
+		}
+		return Msg.error();
+	}
+	
+	
+	/**
+	 * 通过歌曲id查询歌曲评论
+	 */
+	@ResponseBody
+	@RequestMapping("selectSongCommentsBySongId")
+	public Msg selectSongCommentsBySongId(@RequestParam(value="pn",defaultValue="1")Integer pn,int songId){
+		PageHelper.startPage(pn, 10);
+		
+		List<Song_comments> list = song_commentsService.selectSongCommentsBySongId(songId);
+		
+		PageInfo<Song_comments> pageInfo = new PageInfo<Song_comments>(list);
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 通过用户id查询歌曲评论
+	 */
+	@ResponseBody
+	@RequestMapping("selectSongCommentsByUserId")
+	public Msg selectSongCommentsByUserId(@RequestParam(value="pn",defaultValue="1")Integer pn,int userId){
+		PageHelper.startPage(pn, 10);
+		
+		List<Song_comments> list = song_commentsService.selectSongCommentsByUserId(userId);
+		
+		PageInfo<Song_comments> pageInfo = new PageInfo<Song_comments>(list);
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 通过评论id查询歌曲评论
+	 */
+	@ResponseBody
+	@RequestMapping("selectSongCommentsByCommentId")
+	public Msg selectSongCommentsByCommentId(int commentId){
+		Song_comments song_comments = song_commentsService.selectSongCommentsByCommentId(commentId);
+		if(song_comments!=null){
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 删除评论
+	 */
+	@ResponseBody
+	@RequestMapping("deleteSongCommentsByCommentId")
+	public Msg deleteSongCommentsByCommentId(int commentId){
+		int flag = song_commentsService.deleteSongCommentsByCommentId(commentId);
+		if(flag!=0){
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 根据checkbox和id删除选中评论
+	 */
+	@ResponseBody
+	@RequestMapping("deleteSongCommentsByCheckBox")
+	public Msg deleteSongCommentsByCheckBox(String ids) {
+		if (ids.contains("-")) {
+			List<Integer> list = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String id : str_ids) {
+				list.add(Integer.parseInt(id));
+			}
+			song_commentsService.deleteSongCommentsByCheckBox(list);
+		} else {
+			song_commentsService.deleteSongCommentsByCommentId(Integer.parseInt(ids));
+		}
+		return Msg.success();
+	}
+	
+}

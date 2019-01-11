@@ -1,0 +1,144 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.Song;
+import com.chunyin.bean.SongExample;
+import com.chunyin.bean.SongExample.Criteria;
+import com.chunyin.bean.User;
+import com.chunyin.dao.SongMapper;
+
+@Service
+public class SongService {
+
+	@Autowired
+	SongMapper songMapper;
+
+	/**
+	 * 添加歌曲
+	 * @param song
+	 * @return
+	 */
+	public int insertSong(Song song) {
+		return songMapper.insert(song);
+	}
+
+	/**
+	 * 查询全部歌曲
+	 * @return
+	 */
+	public List<Song> selectAllSong() {
+		return songMapper.selectByExample(new SongExample());
+	}
+
+	/**
+	 * 按歌曲id查询歌曲
+	 * @param id
+	 * @return
+	 */
+	public Song selectSongById(int id) {
+		return songMapper.selectByPrimaryKey(id);
+	}
+
+	/**
+	 * 按歌曲名称查询歌曲
+	 * @param name
+	 * @return
+	 */
+	public List<Song> selectSongByName(String name) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andSongNameLike(name);
+		return songMapper.selectByExample(songExample);
+	}
+
+	/**
+	 * 按歌手id查询歌曲
+	 * @param id
+	 * @return
+	 */
+	public List<Song> selectSongBySingerId(int id) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andSingerIdEqualTo(id);
+		return songMapper.selectByExample(songExample);
+	}
+
+	/**
+	 * 按类别名查询歌曲
+	 * @param id
+	 * @return
+	 */
+	public List<Song> selectSongByClassId(String name) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andClassNameEqualTo(name);
+		return songMapper.selectByExample(songExample);
+	}
+
+	/**
+	 * 修改歌曲信息
+	 * @param song
+	 * @return
+	 */
+	public int updateSongInfo(Song song) {
+		return songMapper.updateByPrimaryKey(song);
+	}
+
+	/**
+	 * 按id删除歌曲
+	 * @param id
+	 * @return
+	 */
+	public int deleteSongById(int id) {
+		return songMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 按checkbox和id删除歌曲
+	 * @param list
+	 */
+	public void deleteSongByCheckBox(List<Integer> list) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andSongIdIn(list);
+		songMapper.deleteByExample(songExample);
+	}
+
+	/**
+	 * 按点击数和歌名song_name查询并排序歌曲
+	 */
+	public List<Song> selectSongByNameAndOrderByHits(String name) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andSongNameLike(name);
+		songExample.setOrderByClause("song_hits desc");
+		return songMapper.selectByExample(songExample);
+	}
+
+	/**
+	 * 按点击数和类别class查询并排序歌曲
+	 */
+	public List<Song> selectSongByClassAndOrderByHits(String name) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andClassNameEqualTo(name);
+		songExample.setOrderByClause("song_hits desc");
+		return songMapper.selectByExample(songExample);
+	}
+
+	/**
+	 * 按点击数和歌手singer_id查询并排序歌曲
+	 */
+	public List<Song> selectSongBySingerAndOrderByHits(int id) {
+		SongExample songExample = new SongExample();
+		Criteria criteria = songExample.createCriteria();
+		criteria.andSingerIdEqualTo(id);
+		songExample.setOrderByClause("song_hits desc");
+		return songMapper.selectByExample(songExample);
+	}
+
+}

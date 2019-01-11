@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunyin.dao.SongMapper">
+  <resultMap id="BaseResultMap" type="com.chunyin.bean.Song">
+    <id column="song_id" jdbcType="INTEGER" property="songId" />
+    <result column="song_name" jdbcType="VARCHAR" property="songName" />
+    <result column="composer_name" jdbcType="VARCHAR" property="composerName" />
+    <result column="song_url" jdbcType="VARCHAR" property="songUrl" />
+    <result column="song_image_url" jdbcType="VARCHAR" property="songImageUrl" />
+    <result column="song_time" jdbcType="VARCHAR" property="songTime" />
+    <result column="song_issue_date" jdbcType="TIMESTAMP" property="songIssueDate" />
+    <result column="song_hits" jdbcType="INTEGER" property="songHits" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="composer_id" jdbcType="INTEGER" property="composerId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    song_id, song_name, composer_name, song_url, song_image_url, song_time, song_issue_date, 
+    song_hits, class_id, composer_id
+  </sql>
+  <select id="selectByExample" parameterType="com.chunyin.bean.SongExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from song
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from song
+    where song_id = #{songId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from song
+    where song_id = #{songId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chunyin.bean.SongExample">
+    delete from song
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chunyin.bean.Song">
+    insert into song (song_id, song_name, composer_name, 
+      song_url, song_image_url, song_time, 
+      song_issue_date, song_hits, class_id, 
+      composer_id)
+    values (#{songId,jdbcType=INTEGER}, #{songName,jdbcType=VARCHAR}, #{composerName,jdbcType=VARCHAR}, 
+      #{songUrl,jdbcType=VARCHAR}, #{songImageUrl,jdbcType=VARCHAR}, #{songTime,jdbcType=VARCHAR}, 
+      #{songIssueDate,jdbcType=TIMESTAMP}, #{songHits,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, 
+      #{composerId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chunyin.bean.Song">
+    insert into song
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="songId != null">
+        song_id,
+      </if>
+      <if test="songName != null">
+        song_name,
+      </if>
+      <if test="composerName != null">
+        composer_name,
+      </if>
+      <if test="songUrl != null">
+        song_url,
+      </if>
+      <if test="songImageUrl != null">
+        song_image_url,
+      </if>
+      <if test="songTime != null">
+        song_time,
+      </if>
+      <if test="songIssueDate != null">
+        song_issue_date,
+      </if>
+      <if test="songHits != null">
+        song_hits,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="composerId != null">
+        composer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="songId != null">
+        #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="songName != null">
+        #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="composerName != null">
+        #{composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="songUrl != null">
+        #{songUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songImageUrl != null">
+        #{songImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songTime != null">
+        #{songTime,jdbcType=VARCHAR},
+      </if>
+      <if test="songIssueDate != null">
+        #{songIssueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songHits != null">
+        #{songHits,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="composerId != null">
+        #{composerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chunyin.bean.SongExample" resultType="java.lang.Integer">
+    select count(*) from song
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update song
+    <set>
+      <if test="record.songId != null">
+        song_id = #{record.songId,jdbcType=INTEGER},
+      </if>
+      <if test="record.songName != null">
+        song_name = #{record.songName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.composerName != null">
+        composer_name = #{record.composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songUrl != null">
+        song_url = #{record.songUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songImageUrl != null">
+        song_image_url = #{record.songImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songTime != null">
+        song_time = #{record.songTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.songIssueDate != null">
+        song_issue_date = #{record.songIssueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.songHits != null">
+        song_hits = #{record.songHits,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null">
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.composerId != null">
+        composer_id = #{record.composerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update song
+    set song_id = #{record.songId,jdbcType=INTEGER},
+      song_name = #{record.songName,jdbcType=VARCHAR},
+      composer_name = #{record.composerName,jdbcType=VARCHAR},
+      song_url = #{record.songUrl,jdbcType=VARCHAR},
+      song_image_url = #{record.songImageUrl,jdbcType=VARCHAR},
+      song_time = #{record.songTime,jdbcType=VARCHAR},
+      song_issue_date = #{record.songIssueDate,jdbcType=TIMESTAMP},
+      song_hits = #{record.songHits,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      composer_id = #{record.composerId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chunyin.bean.Song">
+    update song
+    <set>
+      <if test="songName != null">
+        song_name = #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="composerName != null">
+        composer_name = #{composerName,jdbcType=VARCHAR},
+      </if>
+      <if test="songUrl != null">
+        song_url = #{songUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songImageUrl != null">
+        song_image_url = #{songImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songTime != null">
+        song_time = #{songTime,jdbcType=VARCHAR},
+      </if>
+      <if test="songIssueDate != null">
+        song_issue_date = #{songIssueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songHits != null">
+        song_hits = #{songHits,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="composerId != null">
+        composer_id = #{composerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where song_id = #{songId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chunyin.bean.Song">
+    update song
+    set song_name = #{songName,jdbcType=VARCHAR},
+      composer_name = #{composerName,jdbcType=VARCHAR},
+      song_url = #{songUrl,jdbcType=VARCHAR},
+      song_image_url = #{songImageUrl,jdbcType=VARCHAR},
+      song_time = #{songTime,jdbcType=VARCHAR},
+      song_issue_date = #{songIssueDate,jdbcType=TIMESTAMP},
+      song_hits = #{songHits,jdbcType=INTEGER},
+      class_id = #{classId,jdbcType=INTEGER},
+      composer_id = #{composerId,jdbcType=INTEGER}
+    where song_id = #{songId,jdbcType=INTEGER}
+  </update>
+</mapper>

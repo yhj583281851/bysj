@@ -1,0 +1,19 @@
+package com.chunyin.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.chunyin.service.AdminService;
+
+/**
+ * 管理员controller
+ * 
+ * @author Administrator
+ *
+ */
+@Controller
+public class AdminController {
+
+	@Autowired
+	AdminService adminService;
+}

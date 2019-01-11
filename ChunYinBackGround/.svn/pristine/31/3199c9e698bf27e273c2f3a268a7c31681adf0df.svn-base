@@ -1,0 +1,38 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.Sheet;
+import com.chunyin.bean.SheetExample;
+import com.chunyin.bean.SheetExample.Criteria;
+import com.chunyin.bean.SheetKey;
+import com.chunyin.bean.Song;
+import com.chunyin.bean.SongExample;
+import com.chunyin.dao.SheetMapper;
+import com.chunyin.dao.SongMapper;
+
+@Service
+public class SheetService {
+
+	@Autowired
+	SheetMapper sheetMapper;
+	@Autowired
+	SongMapper songMapper;
+	
+	public Sheet selectSheetById(int sheetId, int userId) {
+		SheetKey key = new SheetKey();
+		key.setSheetId(sheetId);
+		key.setUserId(userId);
+		return sheetMapper.selectByPrimaryKey(key);
+	}
+
+	public List<Song> selectSheetSongByIds(List<Integer> list) {
+		SongExample example = new SongExample();
+		com.chunyin.bean.SongExample.Criteria criteria = example.createCriteria();
+		criteria.andSongIdIn(list);
+		return songMapper.selectByExample(example);
+	}
+}

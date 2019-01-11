@@ -1,0 +1,15 @@
+package com.chunyin.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.dao.AdminMapper;
+
+@Service
+public class AdminService {
+
+	@Autowired
+	AdminMapper adminMapper;
+	
+	
+}

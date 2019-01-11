@@ -1,0 +1,23 @@
+package com.chunyin.bean;
+
+public class SheetWithBLOBs extends Sheet {
+    private String sheetList;
+
+    private String sheetIdList;
+
+    public String getSheetList() {
+        return sheetList;
+    }
+
+    public void setSheetList(String sheetList) {
+        this.sheetList = sheetList == null ? null : sheetList.trim();
+    }
+
+    public String getSheetIdList() {
+        return sheetIdList;
+    }
+
+    public void setSheetIdList(String sheetIdList) {
+        this.sheetIdList = sheetIdList == null ? null : sheetIdList.trim();
+    }
+}

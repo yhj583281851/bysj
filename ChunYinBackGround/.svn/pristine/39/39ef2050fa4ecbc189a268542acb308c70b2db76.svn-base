@@ -1,0 +1,84 @@
+package com.chunyin.test;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mybatis.generator.api.MyBatisGenerator;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.xml.ConfigurationParser;
+import org.mybatis.generator.internal.DefaultShellCallback;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.chunyin.service.UserService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
+public class JunitTest {
+
+	@Autowired
+	UserService userService;
+
+	@Test
+	public void StartMBG() {
+		try {
+			List<String> warnings = new ArrayList<String>();
+			boolean overwrite = true;
+			File configFile = new File("mbg.xml");
+			ConfigurationParser cp = new ConfigurationParser(warnings);
+			Configuration config = cp.parseConfiguration(configFile);
+			DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+			MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+			myBatisGenerator.generate(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testUpdatePassword() {
+		int flag = userService.updateUserPassword(1, "123456");
+		System.out.println(flag);
+	}
+
+	@Test
+	public void testGetMusic() {
+		CloseableHttpClient httpClient = null;
+		CloseableHttpResponse httpResponse = null;
+		try {
+			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000).setConnectionRequestTimeout(10000).build();
+			httpClient = HttpClients.createDefault();
+			HttpGet httpGet = new HttpGet("https://music.163.com/#/artist?id=15639");
+			httpGet.setConfig(requestConfig);
+
+			httpGet.setHeader("Host", "music.163.com");
+			httpGet.setHeader("Referer", "http://music.163.com/");
+			httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
+			httpResponse = httpClient.execute(httpGet);
+			String musicName = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+			System.out.println(musicName);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void secondChangeToMinute(){
+		double s = 337.632653;
+		int min = (int) (s/60);
+		int second = (int) (Math.floor(s)%60);
+		String time = min+":"+second;
+		System.out.println(time);
+	}
+}

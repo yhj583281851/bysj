@@ -1,0 +1,115 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.User;
+import com.chunyin.bean.UserExample;
+import com.chunyin.bean.UserExample.Criteria;
+import com.chunyin.dao.UserMapper;
+
+@Service
+public class UserService {
+
+	@Autowired
+	UserMapper userMapper;
+
+	/**
+	 * 查询所有用户
+	 */
+	public List<User> selectOnePageUser() {
+		return userMapper.selectByExampleWithBLOBs(new UserExample());
+	}
+
+	/**
+	 * 按id查询并返回用户
+	 */
+	public List<User> selectUserById(int id) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserIdEqualTo(id);
+		return userMapper.selectByExampleWithBLOBs(userExample);
+	}
+
+
+	/**
+	 * 按账户模糊查询
+	 */
+	public List<User> selectUserByAccountLike(String account) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		String Account = "%"+account+"%";
+		criteria.andUserAccountLike(Account);
+		return userMapper.selectByExampleWithBLOBs(userExample);
+	}
+
+	
+	/**
+	 * 用户登录
+	 * 
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public int userLogin(String account, String password) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account).andUserPasswordEqualTo(password);
+		return userMapper.countByExample(userExample);
+	}
+
+	/**
+	 * 添加用户
+	 */
+	public int insertUser(User user) {
+		return userMapper.insert(user);
+	}
+
+	/**
+	 * 按id删除员工
+	 */
+	public int deleteUserById(int id) {
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 检查重复账号名
+	 */
+	public int checkUserAccount(String account) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserAccountEqualTo(account);
+
+		return userMapper.countByExample(userExample);
+	}
+
+	/**
+	 * 按id修改用户密码
+	 */
+	public int updateUserPassword(int id, String password) {
+		User user = userMapper.selectByPrimaryKey(id);
+		user.setUserPassword(password);
+		return userMapper.updateByPrimaryKey(user);
+	}
+
+	/**
+	 * 按id修改用户信息
+	 */
+	public int updateUserInformation(User user) {
+		return userMapper.updateByPrimaryKeyWithBLOBs(user);
+	}
+
+	/**
+	 * 根据checkbox和id删除选中用户
+	 */
+	public void deleteUserByCheckBox(List<Integer> list) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserIdIn(list);
+
+		userMapper.deleteByExample(userExample);
+	}
+
+}

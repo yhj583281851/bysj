@@ -1,0 +1,199 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no;address=no;email=no" />
+<title>醇音用户服务协议</title>
+<link rel="stylesheet" href="./css/index-762851a41a.css">
+<style type="text/css">
+body {
+	/*min-width: 100%;*/
+	
+	background:#fff url(images/policy4.jpg) no-repeat left top;
+	background-size:100%;
+	background-attachment: fixed;
+}
+
+.protocol h2 {
+	text-align: center;
+}
+
+@media only screen and (max-width:640px ) {
+	.protocol .userService {
+		padding-bottom: 0px
+	}
+	.userService img {
+		width: 100%;
+	}
+	.protocol .protocolTitle {
+		font-weight: normal;
+		padding-top: 20px
+	}
+	.protocol h2 {
+		font-size: 20px;
+	}
+	.protocol {
+		width: 95%;
+		padding: 0px 2.5%;
+		font-size: 12px;
+	}
+	.protocol .widthD1200, .protocol p {
+		width: auto !important;
+	}
+	.protocolContent {
+		font-size: 14px;
+	}
+	.footer {
+		width: auto !important;
+	}
+}
+
+.alright {
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+	<div class="wrapper protocol">
+		<p class="topTips widthD1200">
+		<!-- <img src="images/policy1.jpg"> -->
+		</p>
+		<h1 class="logo widthD1200">
+			<img  style="width:100px;height:100px; display:block;margin:10px auto;-moz-opacity:0.3; filter:alpha(opacity=30);opacity:0.35;" src="images/policy2.jpg">
+		</h1>
+		<h2>醇音用户服务协议</h2>
+		<p class="userService widthD1200">
+		<!--	<img src="images/policy2.jpg"> -->
+		</p>
+		<p class="protocolTitle">1.特别提醒</p>
+		<p class="protocolContent">
+			1.1.在您开始阅读并决定是否接受《醇音用户服务协议》（以下称“本协议”）之前，醇音公司特别提醒您应留意本协议中 <span
+				class="importantC">加粗形式</span>的条款内容。
+		</p>
+		<p class="protocolContent">1.2.除非您已阅读并接受本协议所有条款，否则您无权使用本服务。您对本服务的登录、查看、下载、发布信息、使用等行为即视为您已阅读并同意受本协议的约束。</p>
+		<p class="protocolContent importantC">1.3.若您是18周岁以下的未成年人，在使用醇音公司服务前，请您务必先取得您家长或法定监护人的书面同意，并在监护人在场的情况进行使用本协议所述的服务。</p>
+		<p class="protocolContent">1.4.本协议各条款的标题仅为方便检索使用，部分标题下的条款内容可能将作为独立的法律文件、相关业务规则（以下统称“单独协议”）供您阅读并遵守。</p>
+		<p class="protocolTitle">2.定义解释</p>
+		<p class="protocolContent ">2.1
+			本协议中的“醇音公司”将包括但不限于醇音公司和/或其关联企业。关联企业是指控制醇音公司，或被醇音公司所控制，或与醇音公司共同受控制于同一实体的任何企业。控制是指直接或间接拥有醇音公司百分之五十（50％）以上的股权、投票权或管理权，或通过协议控制醇音公司管理权。</p>
+		<p class="protocolContent ">2.2.本协议中的“用户”指在阅读本协议后选择接受本协议全部条款的个人使用者。用户可通过注册、登录醇音公司帐号或选择其他第三方登录的方式使用服务，但是否注册、登录醇音公司帐号或选择其他第三方登录的方式不影响其作为本协议项下的用户身份。</p>
+		<p class="protocolContent ">2.3.本协议中的“服务”指软件、相关网站以及醇音公司和/或其关联企业提供的其他服务。</p>
+		<p class="protocolContent ">2.4.本协议中的“软件”指醇音公司提供的包括但不限于电脑客户端及移动客户端等，用户通过该电脑客户端及移动客户端等进行搜索、试听、下载及管理等。</p>
+		<p class="protocolContent ">2.5.本协议中的“信息内容”将可能包括但不限于任何在服务中及软件上的资料、文字、软件、音频、图片、视频、图表、广告以及其他资料等。</p>
+		<p class="protocolTitle">3.用户帐号规则</p>
+		<p class="protocolContent ">3.1.为更好地使用本协议项下的服务，用户可注册醇音公司帐号，并在注册帐号后自行妥善保管帐号及密码，对通过该帐号所进行的和与之相关的一切行为负责。</p>
+		<p class="protocolContent ">3.2.用户在注册醇音公司帐号时，应按照注册提示真实、完整地填写相关注册信息，并及时更新该等注册信息，保证该等注册信息自帐号注册起至帐号注销止的期间内始终处于真实、有效状态，且不得存在错误、虚假、违法的内容。因用户填写的注册信息存在错误、虚假、违法等情形导致的后果，无论是否公开，均由该用户自行承担。</p>
+		<p class="protocolContent ">3.3.为了便于用户管理，当用户选择其他第三方登录的方式时，醇音公司已经为用户配置第三方登录方式相对应的醇音公司帐号。该帐号将无需由用户填写，但是根据国家法律规定，醇音公司有权要求用户在填写真实、完整地注册信息后方可以继续使用服务。</p>
+		<p class="protocolContent ">
+			3.4.无论用户选择何种帐号注册方式，<span class="importantC">用户帐号的所有权属于醇音公司</span>，用户完成申请注册手续后，仅获得帐号的使用权，且该使用权仅属于初始申请注册人。初始申请注册人不得赠与、借用、租用、转让或售卖帐号或者以其他方式许可非初始申请注册人使用帐号。非初始申请注册人不得通过受赠、继承、承租、受让或者其他任何方式使用帐号。
+		</p>
+		<p class="protocolContent ">
+			3.5.<span class="importantC">用户有责任妥善保管帐户信息及帐户密码的安全，用户需要对注册帐户以及密码下的行为承担法律责任。</span>用户同意在任何情况下不向他人透露帐户及密码信息。当在用户怀疑他人在使用自己帐号及密码时，应立即通知醇音公司。
+		</p>
+		<p class="protocolContent importantC">3.6.用户如果长期不登录帐号、在多台终端设备上同时使用、显示、运行同一帐号或涉嫌违反醇音公司本协议及单独协议的有关规定，醇音公司有权回收该帐号，由此带来的任何损失均由用户自行承担。</p>
+		<p class="protocolTitle">4.隐私保护</p>
+		<p class="protocolContent">4.1.在使用醇音公司服务过程中，醇音公司对用户相关信息采用专业加密存储与传输方式，并运用各种安全技术和程序建立完善的管理制度来保护用户隐私信息，以免遭受未经授权的访问、使用或披露。醇音公司也可能通过技术手段采集、分析用户使用服务的行为习惯信息，无论何种方式醇音公司都尊重并保护的用户隐私信息。</p>
+		<p class="protocolContent importantC">4.2.依据国家法律法规规定的“后台实名、前台自愿”原则，醇音公司将对用户进行基于移动电话号码等方式进行真实身份信息认证。</p>
+		<p class="protocolContent ">4.3.除司法机关或其他有权机关依法要求提交该等用户隐私信息外，未经用户的同意，醇音公司将不会擅自披露、改变或其他方式使用用户隐私信息。若用户认为醇音公司存在违反前述范围使用该等隐私信息的，应立即与醇音公司进行联系，醇音公司将及时核实处理。</p>
+		<p class="protocolTitle">5.醇音公司的服务形式</p>
+		<p class="protocolContent ">
+			5.1. <span class="importantC">醇音公司软件服务形式</span>
+		</p>
+		<p class="protocolContent ">5.1.1醇音公司可能为不同的终端设备开发不同的软件版本，用户应当根据实际需要选择下载合适的版本进行安装。用户知悉并同意：在电脑下载、安装软件时，软件可能同时包含适用于移动终端设备的软件版本，当用户的移动终端设备与电脑连接时，可能会推荐使用适用于移动终端设备的软件版本。</p>
+		<p class="protocolContent ">5.1.2如果用户从未经合法授权的第三方获取软件或与软件名称相同的安装程序，醇音公司将无法保证软件能否正常使用，并对因此给用户造成的任何损失不予负责。</p>
+		<p class="protocolContent ">5.1.3用户同意软件仅为用户个人非商业性质的使用。用户不得为商业运营目的安装、使用、运行本软件。</p>
+		<p class="protocolContent ">
+			5.1.4为了增进用户体验、完善服务内容，醇音公司将不时提供软件更新服务，该更新可能会采取软件替换、修改、功能强化、版本升级等形式。软件新版本发布后，旧版软件可能无法使用。<span
+				class="importantC">醇音公司不保证旧版软件继续可用及相应的客户服务，请用户及时下载最新版本。</span>
+		</p>
+		<p class="protocolContent ">
+			5.1.5除非法律允许或醇音公司书面许可，<span class="importantC">用户不得从事下列行为</span>，否则，醇音公司将保留依法追究法律责任的权利:
+		</p>
+		<p class="protocolContent ">（1）删除软件及其副本上关于著作权的信息；</p>
+		<p class="protocolContent ">（2）对软件进行反向工程、反向汇编、反向编译或者以其他方式尝试发现软件的源代码；</p>
+		<p class="protocolContent ">（3）对醇音公司拥有知识产权的内容进行使用、出租、出借、复制、修改、链接、转载、汇编、发表、出版、建立镜像站点等、擅自借助本软件及相关信息发展与之有关的衍生产品、作品、服务、插件、外挂、兼容、互联等；</p>
+		<p class="protocolContent ">（4）对软件或者软件运行过程中释放到任何终端内存中的数据、软件运行过程中客户端与服务器端的交互数据，以及软件运行所必需的系统数据，进行复制、修改、增加、删除、挂接运行或创作任何衍生作品，形式包括但不限于使用插件、外挂或非经合法授权的第三方工具/服务接入软件和相关系统；</p>
+		<p class="protocolContent ">（5）修改或伪造软件运行中的指令、数据，增加、删减、变动软件的功能或运行效果，或者将用于上述用途的软件、方法进行运营或向公众传播，无论上述行为是否为商业目的；</p>
+		<p class="protocolContent ">（6）通过非醇音公司开发、授权的第三方软件、插件、外挂、系统，登录或使用软件及服务，或制作、发布、传播上述工具；</p>
+		<p class="protocolContent ">（7）进行任何危害计算机网络安全的行为，包括但不限于：使用未经许可的数据或进入未经许可的服务器/帐号；未经允许进入公众计算机网络或者他人计算机系统并删除、修改、增加存储信息；未经许可，企图探查、扫描、测试本软件系统或网络的弱点或其它实施破坏网络安全的行为；企图干涉、破坏本软件系统或网站的正常运行，故意传播恶意程序或病毒以及其他破坏干扰正常网络信息服务的行为；伪造TCP/IP数据包名称或部分名称；</p>
+		<p class="protocolContent ">（8）通过修改或伪造软件作品运行中的指令、数据、数据包，增加、删减、变动软件的功能或运行效果，及将用于上述用途的软件通过信息网络向公众传播或者运营；</p>
+		<p class="protocolContent ">（9）其他未经醇音公司明示授权的行为。</p>
+		<p class="protocolContent importantC">5.2.醇音公司的收费服务形式</p>
+		<p class="protocolContent importantC">5.2.1醇音公司的部分服务是以收费方式提供的，如用户使用收费服务，请遵守相关的协议。如果用户不同意使用收费服务，则应停止使用服务。</p>
+		<p class="protocolContent">5.2.2醇音公司可能根据实际需要对收费服务的收费标准、方式进行修改和变更，醇音公司也可能会对部分免费服务开始收费。</p>
+		<p class="protocolContent importantC">5.3.醇音公司广告服务形式</p>
+		<p class="protocolContent">5.3.1用户同意醇音公司可以在提供服务的过程中自行或由第三方广告商向用户发送广告、推广或宣传信息（包括商业与非商业信息），其方式和范围可不经向用户特别通知而变更。</p>
+		<p class="protocolContent">
+			5.3.2 <span class="importantC">醇音公司为用户提供选择关闭广告信息的功能</span>，但任何时候用户都不得以本协议未明确约定或醇音公司未书面许可的方式屏蔽、过滤广告信息。
+		</p>
+		<p class="protocolContent">5.3.3醇音公司依照法律的规定对广告商履行相关义务，用户应当自行判断广告信息的真实性并为自己的判断行为负责，除法律明确规定外，用户因依该广告信息进行的交易或前述广告商提供的内容而遭受的损失或损害，醇音公司不承担责任。</p>
+		<p class="protocolTitle">6.用户行为规范</p>
+		<p class="protocolContent">
+			6.1. <span class="importantC">用户在使用醇音公司服务时不得从事以下行为：</span>
+		</p>
+		<p class="protocolContent">（1）发布、传送、传播、储存违反国家法律、危害国家安全统一、社会稳定、公序良俗、社会公德以及侮辱、诽谤、淫秽、暴力的内容；</p>
+		<p class="protocolContent">（2）发布、传送、传播、储存侵害他人名誉权、肖像权、知识产权、商业秘密等合法权利的内容；</p>
+		<p class="protocolContent">（3）使用任何包含有通过侵犯知识产权、商业机密或任何一方的其他合法权利的方式利用本服务获得的相应的音频、视频资料；</p>
+		<p class="protocolContent">（4）制作、发布、传播用于窃取他人帐号及他人专属信息、财产、保密信息的软件；</p>
+		<p class="protocolContent">（5）在未经醇音公司书面明确授权前提下，出售、出租、出借、散布、转移或转授权本软件和本服务或相关的链接或从使用软件和服务或软件和服务的条款中获利，无论以上使用是否为直接经济或金钱收益；</p>
+		<p class="protocolContent">（6）未经醇音公司允许，擅自将本“软件”、本服务的音乐内容资源库中的任何音乐资源应用于商业用途或进行营利活动；</p>
+		<p class="protocolContent">（7）虚构事实、隐瞒真相以误导、欺骗他人；</p>
+		<p class="protocolContent">（8）发表、传送、传播垃圾信息；</p>
+		<p class="protocolContent">（9）以其他以任何不合法的方式、为任何不合法的目的、或以任何与本协议不一致的方式使用本软件和本服务；</p>
+		<p class="protocolContent">（10）从事其他违反法律法规、政策及公序良俗、社会公德等的行为。</p>
+		<p class="protocolContent">6.2.用户在使用醇音公司服务时，如应严格遵循上述约定，因用户不当使用醇音公司服务而造成的其自己、醇音公司或其他第三方的损失，均应由该用户承担。同时，用户应自行判断信息内容的真实性、合法性和有效性，并自行承担使用该等信息内容可能产生的一切后果与责任。</p>
+		<p class="protocolTitle">7.未成年人使用条款</p>
+		<p class="protocolContent importantC">7.1.未成年人用户涉世未深，容易被网络虚象迷惑，且好奇心强，遇事缺乏随机应变的处理能力，很容易被别有用心的人利用而又缺乏自我保护能力。因此，未成年人用户在使用本服务时应注意以下事项，提高安全意识，加强自我保护：</p>
+		<p class="protocolContent importantC">（1）认清网络世界与现实世界的区别，避免沉迷于网络，影响日常的学习生活；</p>
+		<p class="protocolContent importantC">（2）填写个人资料时，加强个人保护意识，以免不良分子对个人生活造成骚扰；</p>
+		<p class="protocolContent importantC">（3）在监护人或老师的指导下，学习正确使用网络；</p>
+		<p class="protocolContent importantC">（4）避免陌生网友随意会面或参与联谊活动，以免不法分子有机可乘，危及自身安全。</p>
+		<p class="protocolContent importantC">7.2.监护人、学校均应对未成年人使用本服务时多做引导。特别是家长应关心子女的成长，注意与子女的沟通，指导子女上网应该注意的安全问题，防患于未然。</p>
+		<p class="protocolTitle">8.不可抗力及其他免责事由</p>
+		<p class="protocolContent">8.1.用户理解并同意，在使用本服务的过程中，可能会遇到不可抗力等风险因素，使本服务发生中断。不可抗力是指不能预见、不能克服并不能避免且对一方或双方造成重大影响的客观事件，包括但不限于自然灾害如洪水、地震、瘟疫流行和风暴等以及社会事件如战争、动乱、政府行为等。出现上述情况时，醇音公司将努力在第一时间与相关单位配合，及时进行修复，但是由此给用户造成的损失醇音公司在法律允许的范围内免责。</p>
+		<p class="protocolContent">8.2.在法律允许的范围内，醇音对以下情形导致的服务中断或受阻不承担责任：</p>
+		<p class="protocolContent">（1）受到计算机病毒、木马或其他恶意程序、黑客攻击的破坏；</p>
+		<p class="protocolContent">（2）用户或醇音的电脑软件、系统、硬件和通信线路出现故障；</p>
+		<p class="protocolContent">（3）用户操作不当；</p>
+		<p class="protocolContent">（4）用户通过非醇音授权的方式使用本服务。</p>
+		<p class="protocolContent">8.3.用户理解并同意，在使用本服务的过程中，可能会遇到网络信息或其他用户行为带来的风险，醇音公司不对任何信息的真实性、适用性、合法性承担责任，也不对因侵权行为给您造成的损害负责。这些风险包括但不限于：</p>
+		<p class="protocolContent">（1）来自他人匿名或冒名的含有威胁、诽谤、令人反感或非法内容的信息；</p>
+		<p class="protocolContent">（2）因使用本服务，遭受他人误导、欺骗或其他导致或可能导致的任何心理、生理上的伤害以及经济上的损失；</p>
+		<p class="protocolContent">（3）其他因网络信息或用户行为引起的风险。</p>
+		<p class="protocolTitle">9.知识产权保护及声明</p>
+		<p class="protocolContent">9.1.醇音公司和/或其关联企业是软件的知识产权权利人，享有与本软件相关的一切著作权、商标权、专利权、商业秘密等知识产权，但相关权利人依照法律规定应享有的权利除外。</p>
+		<p class="protocolContent">9.2.未经醇音公司和/或其关联企业或相关权利人书面同意，用户不得为任何商业或非商业目的自行或许可任何第三方实施、利用、转让上述知识产权。</p>
+		<p class="protocolContent">9.3.如因本软件使用的第三方软件或技术引发的任何纠纷，应由该第三方负责解决，醇音公司不承担任何责任。醇音公司不对第三方软件或技术提供客服支持，若用户需要获取支持，请与第三方联系。</p>
+		<p class="protocolTitle">10.违约责任</p>
+		<p class="protocolContent importantC">10.1.如果醇音公司发现或收到他人举报或投诉用户违反本协议约定的，醇音公司有权不经通知随时对相关内容进行删除、屏蔽，并视行为情节对违规帐号处以包括但不限于警告、限制或禁止使用部分或全部功能、帐号封禁直至注销的处罚。用户对此不持异议。</p>
+		<p class="protocolContent">10.2.醇音公司依据上述约定获得处理违法违规内容的权利，该权利不构成醇音公司的义务或承诺，醇音公司不能保证及时发现违法行为或进行相应处理。</p>
+		<p class="protocolContent">10.3.用户理解并同意，醇音有权依合理判断对违反有关法律法规或本协议规定的行为进行处罚，对违法违规的任何用户采取适当的法律行动，并依据法律法规保存有关信息向有关部门报告等，用户应独自承担由此而产生的一切法律责任。</p>
+		<p class="protocolContent importantC">10.4.用户理解并同意，因用户违反本协议或相关服务条款的规定，导致或产生第三方主张的任何索赔、要求或损失，用户应当独立承担责任；醇音因此遭受损失的，用户也应当一并赔偿。</p>
+
+		<p class="protocolTitle">11.协议的生效及终止</p>
+		<p class="protocolContent importantC">11.1醇音公司有权在必要时修改本协议条款。用户可以在相关服务页面查阅最新版本的协议条款。</p>
+		<p class="protocolContent importantC">11.2.本协议条款变更后，如果您继续使用醇音提供的软件或服务，即视为您已接受修改后的协议。如果您不接受修改后的协议，应当停止使用醇音公司提供的软件或服务。</p>
+		<p class="protocolContent importantC">11.3.醇音公司可能会对服务内容进行变更，也可能会中断、中止或终止服务。</p>
+		<p class="protocolContent importantC">11.4.醇音公司建议用户可采取合法的手段保存其所需要的信息内容和数据。如果用户的服务被终止，醇音公司可以从服务器上永久地删除用户的数据。服务终止后，醇音公司没有义务向用户返还数据。</p>
+		<p class="protocolTitle">12.其他</p>
+		<p class="protocolContent importantC">12.1.本协议签订地为中华人民共和国广东省东莞市东莞理工学院松山湖校区7a305实验室。</p>
+		<p class="protocolContent importantC">12.2.本协议的成立、生效、履行、解释及纠纷解决，适用中华人民共和国大陆地区法律（不包括冲突法）。</p>
+		<p class="protocolContent importantC">12.3.若用户和醇音公司之间发生任何纠纷或争议，首先应友好协商解决；协商不成的，用户同意将纠纷或争议提交本协议签订地有管辖权的人民法院管辖。</p>
+		<p class="protocolContent">12.4.本协议条款无论因何种原因部分无效或不可执行，其余条款仍有效，对双方具有约束力。</p>
+		<p class="protocolContent alright">醇音公司</p>
+		<div class="footer">醇音播放平台有限公司 Copyright © 2018
+			ChunYin-Inc.All Rights Reserved</div>
+	</div>
+</body>
+
+</html>

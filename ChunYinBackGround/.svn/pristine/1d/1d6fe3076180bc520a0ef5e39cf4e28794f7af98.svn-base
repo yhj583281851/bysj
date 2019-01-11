@@ -1,0 +1,95 @@
+package com.chunyin.bean;
+
+import java.util.Date;
+
+public class Song {
+    private Integer songId;
+
+    private String songName;
+
+    private String songUrl;
+
+    private String songImageUrl;
+
+    private Long songTime;
+
+    private Date songIssueDate;
+
+    private Integer songHits;
+
+    private String className;
+
+    private Integer singerId;
+
+    public Integer getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Integer songId) {
+        this.songId = songId;
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName == null ? null : songName.trim();
+    }
+
+    public String getSongUrl() {
+        return songUrl;
+    }
+
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl == null ? null : songUrl.trim();
+    }
+
+    public String getSongImageUrl() {
+        return songImageUrl;
+    }
+
+    public void setSongImageUrl(String songImageUrl) {
+        this.songImageUrl = songImageUrl == null ? null : songImageUrl.trim();
+    }
+
+    public Long getSongTime() {
+        return songTime;
+    }
+
+    public void setSongTime(Long songTime) {
+        this.songTime = songTime;
+    }
+
+    public Date getSongIssueDate() {
+        return songIssueDate;
+    }
+
+    public void setSongIssueDate(Date songIssueDate) {
+        this.songIssueDate = songIssueDate;
+    }
+
+    public Integer getSongHits() {
+        return songHits;
+    }
+
+    public void setSongHits(Integer songHits) {
+        this.songHits = songHits;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className == null ? null : className.trim();
+    }
+
+    public Integer getSingerId() {
+        return singerId;
+    }
+
+    public void setSingerId(Integer singerId) {
+        this.singerId = singerId;
+    }
+}

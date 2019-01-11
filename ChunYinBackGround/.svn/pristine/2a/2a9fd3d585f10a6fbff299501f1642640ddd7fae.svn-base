@@ -1,0 +1,67 @@
+package com.chunyin.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.chunyin.bean.Msg;
+import com.chunyin.bean.Sheet;
+import com.chunyin.bean.Song;
+import com.chunyin.service.SheetService;
+
+
+/**
+ * 歌单controller
+ * @author Administrator
+ *
+ */
+@Controller
+public class SheetController {
+
+	@Autowired
+	SheetService sheetService;
+	/**
+	 * 查询歌单
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("selectSheetById")
+	public Msg selectSheetById(int sheetId, int userId){
+		Sheet sheet = sheetService.selectSheetById(sheetId,userId);
+		if(sheet==null){
+			return Msg.error();
+		}
+		String ids = sheet.getSheetList();
+		List<Integer> list = new ArrayList<Integer>();
+		List<Song> songs = new ArrayList<Song>();
+		if(ids.isEmpty()){
+			
+		}
+		if (ids.contains("-")) {
+			
+			String[] str_ids = ids.split("-");
+			for (String song_id : str_ids) {
+				list.add(Integer.parseInt(song_id));
+				}
+				songs = sheetService.selectSheetSongByIds(list);
+			}else if(ids.isEmpty()){
+				System.out.println("歌单里没有歌曲");
+			}else{
+				list.add(Integer.parseInt(ids));
+				songs = sheetService.selectSheetSongByIds(list);
+			}
+		Map<String,Object> sheetList = new HashMap<String,Object>();
+		sheetList.put("songList", songs);
+		sheetList.put("sheet",sheet);
+		return Msg.success().add("sheetList", sheetList);
+	}
+}

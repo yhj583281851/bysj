@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chunyin.dao.SheetMapper">
+  <resultMap id="BaseResultMap" type="com.chunyin.bean.Sheet">
+    <id column="sheet_id" jdbcType="INTEGER" property="sheetId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="sheet_name" jdbcType="VARCHAR" property="sheetName" />
+    <result column="sheet_image_url" jdbcType="VARCHAR" property="sheetImageUrl" />
+    <result column="sheet_song_nums" jdbcType="INTEGER" property="sheetSongNums" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chunyin.bean.Sheet">
+    <result column="sheet_list" jdbcType="LONGVARCHAR" property="sheetList" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sheet_id, user_id, sheet_name, sheet_image_url, sheet_song_nums
+  </sql>
+  <sql id="Blob_Column_List">
+    sheet_list
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.chunyin.bean.SheetExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.chunyin.bean.SheetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.chunyin.bean.SheetKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sheet
+    where sheet_id = #{sheetId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.chunyin.bean.SheetKey">
+    delete from sheet
+    where sheet_id = #{sheetId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chunyin.bean.SheetExample">
+    delete from sheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chunyin.bean.Sheet">
+    insert into sheet (sheet_id, user_id, sheet_name, 
+      sheet_image_url, sheet_song_nums, sheet_list
+      )
+    values (#{sheetId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{sheetName,jdbcType=VARCHAR}, 
+      #{sheetImageUrl,jdbcType=VARCHAR}, #{sheetSongNums,jdbcType=INTEGER}, #{sheetList,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chunyin.bean.Sheet">
+    insert into sheet
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sheetId != null">
+        sheet_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="sheetName != null">
+        sheet_name,
+      </if>
+      <if test="sheetImageUrl != null">
+        sheet_image_url,
+      </if>
+      <if test="sheetSongNums != null">
+        sheet_song_nums,
+      </if>
+      <if test="sheetList != null">
+        sheet_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sheetId != null">
+        #{sheetId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="sheetName != null">
+        #{sheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetImageUrl != null">
+        #{sheetImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetSongNums != null">
+        #{sheetSongNums,jdbcType=INTEGER},
+      </if>
+      <if test="sheetList != null">
+        #{sheetList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chunyin.bean.SheetExample" resultType="java.lang.Integer">
+    select count(*) from sheet
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sheet
+    <set>
+      <if test="record.sheetId != null">
+        sheet_id = #{record.sheetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sheetName != null">
+        sheet_name = #{record.sheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sheetImageUrl != null">
+        sheet_image_url = #{record.sheetImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sheetSongNums != null">
+        sheet_song_nums = #{record.sheetSongNums,jdbcType=INTEGER},
+      </if>
+      <if test="record.sheetList != null">
+        sheet_list = #{record.sheetList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sheet
+    set sheet_id = #{record.sheetId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      sheet_name = #{record.sheetName,jdbcType=VARCHAR},
+      sheet_image_url = #{record.sheetImageUrl,jdbcType=VARCHAR},
+      sheet_song_nums = #{record.sheetSongNums,jdbcType=INTEGER},
+      sheet_list = #{record.sheetList,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sheet
+    set sheet_id = #{record.sheetId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      sheet_name = #{record.sheetName,jdbcType=VARCHAR},
+      sheet_image_url = #{record.sheetImageUrl,jdbcType=VARCHAR},
+      sheet_song_nums = #{record.sheetSongNums,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chunyin.bean.Sheet">
+    update sheet
+    <set>
+      <if test="sheetName != null">
+        sheet_name = #{sheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetImageUrl != null">
+        sheet_image_url = #{sheetImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sheetSongNums != null">
+        sheet_song_nums = #{sheetSongNums,jdbcType=INTEGER},
+      </if>
+      <if test="sheetList != null">
+        sheet_list = #{sheetList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where sheet_id = #{sheetId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chunyin.bean.Sheet">
+    update sheet
+    set sheet_name = #{sheetName,jdbcType=VARCHAR},
+      sheet_image_url = #{sheetImageUrl,jdbcType=VARCHAR},
+      sheet_song_nums = #{sheetSongNums,jdbcType=INTEGER},
+      sheet_list = #{sheetList,jdbcType=LONGVARCHAR}
+    where sheet_id = #{sheetId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chunyin.bean.Sheet">
+    update sheet
+    set sheet_name = #{sheetName,jdbcType=VARCHAR},
+      sheet_image_url = #{sheetImageUrl,jdbcType=VARCHAR},
+      sheet_song_nums = #{sheetSongNums,jdbcType=INTEGER}
+    where sheet_id = #{sheetId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

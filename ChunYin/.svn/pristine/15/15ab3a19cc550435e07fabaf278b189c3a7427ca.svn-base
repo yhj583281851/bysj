@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<link rel="stylesheet" href="src/css/smusic.css"/>
+<link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+<style>
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:#6A6B6F;
+    text-align:center;
+    padding-top:17px;
+    margin:0 auto;
+    width:470px;
+}
+h1{
+    font-size:36px;
+}
+h2{
+    font-size:24px;
+}
+p{
+    font-size:18px;
+}
+#skPlayer{
+    
+}
+.doc{
+    text-align:left;
+}
+pre{
+    padding-left:2em;
+    font-size:16px;
+    line-height:24px;
+    color:#fff;
+    background-color:#272822;
+    border-radius:3px;
+}
+@media screen and (max-width:768px){
+    body{
+        width:100%;
+    }
+    .doc{
+        display:none;
+    }
+}
+</style>
+</head>
+<body>
+	<div class="grid-music-container">
+       <div class="m-play-controls">
+           <a class="u-play-btn prev" title="上一曲" onclick="player.prev()"></a>
+           <a class="u-play-btn ctrl-play play" title="暂停/播放" onclick="player.toggle()"></a>
+           <a class="u-play-btn next" title="下一曲" onclick="player.next()"></a>
+           <a class="icon-size-fullscreen" href="content.jsp" target="iframeRight"></a>
+       </div>
+    </div>
+    <div id="skPlayer"></div>
+    <script src="./dist/skPlayer.min.js"></script>
+    <script>
+	var datas=[];
+	 
+	var data = {};
+	data["name"] = '打呼';
+	data["author"] = '潘玮柏&杨丞琳';
+	data["src"] = 'http://o9vplcp9o.bkt.clouddn.com/music.mp3';
+	data["cover"] = 'http://o9vplcp9o.bkt.clouddn.com/cover.jpg';
+	datas.push(data);
+
+    
+    
+    
+    var player = new skPlayer({
+        autoplay: true,
+        music: {
+            type: 'cloud',
+            source:  571470953
+        }
+    
+    });
+    </script>
+</body>
+
+</html>

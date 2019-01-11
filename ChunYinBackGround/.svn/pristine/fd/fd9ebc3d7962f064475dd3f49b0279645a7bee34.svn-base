@@ -1,0 +1,721 @@
+package com.chunyin.bean;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class ComposerExample {
+    protected String orderByClause;
+
+    protected boolean distinct;
+
+    protected List<Criteria> oredCriteria;
+
+    public ComposerExample() {
+        oredCriteria = new ArrayList<Criteria>();
+    }
+
+    public void setOrderByClause(String orderByClause) {
+        this.orderByClause = orderByClause;
+    }
+
+    public String getOrderByClause() {
+        return orderByClause;
+    }
+
+    public void setDistinct(boolean distinct) {
+        this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
+    }
+
+    public List<Criteria> getOredCriteria() {
+        return oredCriteria;
+    }
+
+    public void or(Criteria criteria) {
+        oredCriteria.add(criteria);
+    }
+
+    public Criteria or() {
+        Criteria criteria = createCriteriaInternal();
+        oredCriteria.add(criteria);
+        return criteria;
+    }
+
+    public Criteria createCriteria() {
+        Criteria criteria = createCriteriaInternal();
+        if (oredCriteria.size() == 0) {
+            oredCriteria.add(criteria);
+        }
+        return criteria;
+    }
+
+    protected Criteria createCriteriaInternal() {
+        Criteria criteria = new Criteria();
+        return criteria;
+    }
+
+    public void clear() {
+        oredCriteria.clear();
+        orderByClause = null;
+        distinct = false;
+    }
+
+    protected abstract static class GeneratedCriteria {
+        protected List<Criterion> criteria;
+
+        protected GeneratedCriteria() {
+            super();
+            criteria = new ArrayList<Criterion>();
+        }
+
+        public boolean isValid() {
+            return criteria.size() > 0;
+        }
+
+        public List<Criterion> getAllCriteria() {
+            return criteria;
+        }
+
+        public List<Criterion> getCriteria() {
+            return criteria;
+        }
+
+        protected void addCriterion(String condition) {
+            if (condition == null) {
+                throw new RuntimeException("Value for condition cannot be null");
+            }
+            criteria.add(new Criterion(condition));
+        }
+
+        protected void addCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            criteria.add(new Criterion(condition, value));
+        }
+
+        protected void addCriterion(String condition, Object value1, Object value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        public Criteria andComposerIdIsNull() {
+            addCriterion("composer_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdIsNotNull() {
+            addCriterion("composer_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdEqualTo(Integer value) {
+            addCriterion("composer_id =", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdNotEqualTo(Integer value) {
+            addCriterion("composer_id <>", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdGreaterThan(Integer value) {
+            addCriterion("composer_id >", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("composer_id >=", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdLessThan(Integer value) {
+            addCriterion("composer_id <", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdLessThanOrEqualTo(Integer value) {
+            addCriterion("composer_id <=", value, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdIn(List<Integer> values) {
+            addCriterion("composer_id in", values, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdNotIn(List<Integer> values) {
+            addCriterion("composer_id not in", values, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdBetween(Integer value1, Integer value2) {
+            addCriterion("composer_id between", value1, value2, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("composer_id not between", value1, value2, "composerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameIsNull() {
+            addCriterion("composer_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameIsNotNull() {
+            addCriterion("composer_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameEqualTo(String value) {
+            addCriterion("composer_name =", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameNotEqualTo(String value) {
+            addCriterion("composer_name <>", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameGreaterThan(String value) {
+            addCriterion("composer_name >", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameGreaterThanOrEqualTo(String value) {
+            addCriterion("composer_name >=", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameLessThan(String value) {
+            addCriterion("composer_name <", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameLessThanOrEqualTo(String value) {
+            addCriterion("composer_name <=", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameLike(String value) {
+            addCriterion("composer_name like", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameNotLike(String value) {
+            addCriterion("composer_name not like", value, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameIn(List<String> values) {
+            addCriterion("composer_name in", values, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameNotIn(List<String> values) {
+            addCriterion("composer_name not in", values, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameBetween(String value1, String value2) {
+            addCriterion("composer_name between", value1, value2, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerNameNotBetween(String value1, String value2) {
+            addCriterion("composer_name not between", value1, value2, "composerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexIsNull() {
+            addCriterion("composer_sex is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexIsNotNull() {
+            addCriterion("composer_sex is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexEqualTo(String value) {
+            addCriterion("composer_sex =", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexNotEqualTo(String value) {
+            addCriterion("composer_sex <>", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexGreaterThan(String value) {
+            addCriterion("composer_sex >", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexGreaterThanOrEqualTo(String value) {
+            addCriterion("composer_sex >=", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexLessThan(String value) {
+            addCriterion("composer_sex <", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexLessThanOrEqualTo(String value) {
+            addCriterion("composer_sex <=", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexLike(String value) {
+            addCriterion("composer_sex like", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexNotLike(String value) {
+            addCriterion("composer_sex not like", value, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexIn(List<String> values) {
+            addCriterion("composer_sex in", values, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexNotIn(List<String> values) {
+            addCriterion("composer_sex not in", values, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexBetween(String value1, String value2) {
+            addCriterion("composer_sex between", value1, value2, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerSexNotBetween(String value1, String value2) {
+            addCriterion("composer_sex not between", value1, value2, "composerSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlIsNull() {
+            addCriterion("composer_image_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlIsNotNull() {
+            addCriterion("composer_image_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlEqualTo(String value) {
+            addCriterion("composer_image_url =", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlNotEqualTo(String value) {
+            addCriterion("composer_image_url <>", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlGreaterThan(String value) {
+            addCriterion("composer_image_url >", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("composer_image_url >=", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlLessThan(String value) {
+            addCriterion("composer_image_url <", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlLessThanOrEqualTo(String value) {
+            addCriterion("composer_image_url <=", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlLike(String value) {
+            addCriterion("composer_image_url like", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlNotLike(String value) {
+            addCriterion("composer_image_url not like", value, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlIn(List<String> values) {
+            addCriterion("composer_image_url in", values, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlNotIn(List<String> values) {
+            addCriterion("composer_image_url not in", values, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlBetween(String value1, String value2) {
+            addCriterion("composer_image_url between", value1, value2, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerImageUrlNotBetween(String value1, String value2) {
+            addCriterion("composer_image_url not between", value1, value2, "composerImageUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeIsNull() {
+            addCriterion("composer_departure_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeIsNotNull() {
+            addCriterion("composer_departure_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeEqualTo(Date value) {
+            addCriterion("composer_departure_time =", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeNotEqualTo(Date value) {
+            addCriterion("composer_departure_time <>", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeGreaterThan(Date value) {
+            addCriterion("composer_departure_time >", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("composer_departure_time >=", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeLessThan(Date value) {
+            addCriterion("composer_departure_time <", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeLessThanOrEqualTo(Date value) {
+            addCriterion("composer_departure_time <=", value, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeIn(List<Date> values) {
+            addCriterion("composer_departure_time in", values, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeNotIn(List<Date> values) {
+            addCriterion("composer_departure_time not in", values, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeBetween(Date value1, Date value2) {
+            addCriterion("composer_departure_time between", value1, value2, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerDepartureTimeNotBetween(Date value1, Date value2) {
+            addCriterion("composer_departure_time not between", value1, value2, "composerDepartureTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressIsNull() {
+            addCriterion("composer_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressIsNotNull() {
+            addCriterion("composer_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressEqualTo(String value) {
+            addCriterion("composer_address =", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressNotEqualTo(String value) {
+            addCriterion("composer_address <>", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressGreaterThan(String value) {
+            addCriterion("composer_address >", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressGreaterThanOrEqualTo(String value) {
+            addCriterion("composer_address >=", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressLessThan(String value) {
+            addCriterion("composer_address <", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressLessThanOrEqualTo(String value) {
+            addCriterion("composer_address <=", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressLike(String value) {
+            addCriterion("composer_address like", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressNotLike(String value) {
+            addCriterion("composer_address not like", value, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressIn(List<String> values) {
+            addCriterion("composer_address in", values, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressNotIn(List<String> values) {
+            addCriterion("composer_address not in", values, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressBetween(String value1, String value2) {
+            addCriterion("composer_address between", value1, value2, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerAddressNotBetween(String value1, String value2) {
+            addCriterion("composer_address not between", value1, value2, "composerAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayIsNull() {
+            addCriterion("composer_birthday is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayIsNotNull() {
+            addCriterion("composer_birthday is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayEqualTo(Date value) {
+            addCriterion("composer_birthday =", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayNotEqualTo(Date value) {
+            addCriterion("composer_birthday <>", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayGreaterThan(Date value) {
+            addCriterion("composer_birthday >", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayGreaterThanOrEqualTo(Date value) {
+            addCriterion("composer_birthday >=", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayLessThan(Date value) {
+            addCriterion("composer_birthday <", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayLessThanOrEqualTo(Date value) {
+            addCriterion("composer_birthday <=", value, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayIn(List<Date> values) {
+            addCriterion("composer_birthday in", values, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayNotIn(List<Date> values) {
+            addCriterion("composer_birthday not in", values, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayBetween(Date value1, Date value2) {
+            addCriterion("composer_birthday between", value1, value2, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerBirthdayNotBetween(Date value1, Date value2) {
+            addCriterion("composer_birthday not between", value1, value2, "composerBirthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsIsNull() {
+            addCriterion("composer_hits is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsIsNotNull() {
+            addCriterion("composer_hits is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsEqualTo(Integer value) {
+            addCriterion("composer_hits =", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsNotEqualTo(Integer value) {
+            addCriterion("composer_hits <>", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsGreaterThan(Integer value) {
+            addCriterion("composer_hits >", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("composer_hits >=", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsLessThan(Integer value) {
+            addCriterion("composer_hits <", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsLessThanOrEqualTo(Integer value) {
+            addCriterion("composer_hits <=", value, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsIn(List<Integer> values) {
+            addCriterion("composer_hits in", values, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsNotIn(List<Integer> values) {
+            addCriterion("composer_hits not in", values, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsBetween(Integer value1, Integer value2) {
+            addCriterion("composer_hits between", value1, value2, "composerHits");
+            return (Criteria) this;
+        }
+
+        public Criteria andComposerHitsNotBetween(Integer value1, Integer value2) {
+            addCriterion("composer_hits not between", value1, value2, "composerHits");
+            return (Criteria) this;
+        }
+    }
+
+    public static class Criteria extends GeneratedCriteria {
+
+        protected Criteria() {
+            super();
+        }
+    }
+
+    public static class Criterion {
+        private String condition;
+
+        private Object value;
+
+        private Object secondValue;
+
+        private boolean noValue;
+
+        private boolean singleValue;
+
+        private boolean betweenValue;
+
+        private boolean listValue;
+
+        private String typeHandler;
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
+
+        protected Criterion(String condition) {
+            super();
+            this.condition = condition;
+            this.typeHandler = null;
+            this.noValue = true;
+        }
+
+        protected Criterion(String condition, Object value, String typeHandler) {
+            super();
+            this.condition = condition;
+            this.value = value;
+            this.typeHandler = typeHandler;
+            if (value instanceof List<?>) {
+                this.listValue = true;
+            } else {
+                this.singleValue = true;
+            }
+        }
+
+        protected Criterion(String condition, Object value) {
+            this(condition, value, null);
+        }
+
+        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+            super();
+            this.condition = condition;
+            this.value = value;
+            this.secondValue = secondValue;
+            this.typeHandler = typeHandler;
+            this.betweenValue = true;
+        }
+
+        protected Criterion(String condition, Object value, Object secondValue) {
+            this(condition, value, secondValue, null);
+        }
+    }
+}

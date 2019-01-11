@@ -1,0 +1,33 @@
+package com.chunyin.bean;
+
+public class Song_commentsKey {
+    private Integer commentId;
+
+    private String userName;
+
+    private Integer songId;
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Integer getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Integer songId) {
+        this.songId = songId;
+    }
+}

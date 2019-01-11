@@ -1,0 +1,95 @@
+package com.chunyin.bean;
+
+import java.util.Date;
+
+public class Singer {
+    private Integer singerId;
+
+    private String singerName;
+
+    private String singerSex;
+
+    private String singerImageUrl;
+
+    private Date singerDepartureTime;
+
+    private String singerAddress;
+
+    private Date singerBirthday;
+
+    private Integer singerHits;
+
+    private String singerIntroduction;
+
+    public Integer getSingerId() {
+        return singerId;
+    }
+
+    public void setSingerId(Integer singerId) {
+        this.singerId = singerId;
+    }
+
+    public String getSingerName() {
+        return singerName;
+    }
+
+    public void setSingerName(String singerName) {
+        this.singerName = singerName == null ? null : singerName.trim();
+    }
+
+    public String getSingerSex() {
+        return singerSex;
+    }
+
+    public void setSingerSex(String singerSex) {
+        this.singerSex = singerSex == null ? null : singerSex.trim();
+    }
+
+    public String getSingerImageUrl() {
+        return singerImageUrl;
+    }
+
+    public void setSingerImageUrl(String singerImageUrl) {
+        this.singerImageUrl = singerImageUrl == null ? null : singerImageUrl.trim();
+    }
+
+    public Date getSingerDepartureTime() {
+        return singerDepartureTime;
+    }
+
+    public void setSingerDepartureTime(Date singerDepartureTime) {
+        this.singerDepartureTime = singerDepartureTime;
+    }
+
+    public String getSingerAddress() {
+        return singerAddress;
+    }
+
+    public void setSingerAddress(String singerAddress) {
+        this.singerAddress = singerAddress == null ? null : singerAddress.trim();
+    }
+
+    public Date getSingerBirthday() {
+        return singerBirthday;
+    }
+
+    public void setSingerBirthday(Date singerBirthday) {
+        this.singerBirthday = singerBirthday;
+    }
+
+    public Integer getSingerHits() {
+        return singerHits;
+    }
+
+    public void setSingerHits(Integer singerHits) {
+        this.singerHits = singerHits;
+    }
+
+    public String getSingerIntroduction() {
+        return singerIntroduction;
+    }
+
+    public void setSingerIntroduction(String singerIntroduction) {
+        this.singerIntroduction = singerIntroduction == null ? null : singerIntroduction.trim();
+    }
+}

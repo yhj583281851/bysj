@@ -1,0 +1,25 @@
+package com.chunyin.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.chunyin.bean.Class;
+import com.chunyin.bean.ClassExample;
+import com.chunyin.dao.ClassMapper;
+
+@Service
+public class ClassService {
+
+	@Autowired
+	ClassMapper classMapper;
+
+	/**
+	 *查询所有类别
+	 * @return
+	 */
+	public List<Class> selectAllClass() {
+		return classMapper.selectByExample(new ClassExample());
+	}
+}
