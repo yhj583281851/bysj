@@ -274,5 +274,6 @@
     
     <!-- 加载static/js -->
     <script src="static/js/user_list.js"></script>
+    <script src="static/js/cookie.js"></script>
 </body>
 </html>

@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
+    <script type="text/javascript" src="static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     
 </head>
 <body data-type="generalComponents">
@@ -36,15 +38,6 @@
                     <div class="caption font-green bold">
                         <span class="am-icon-code"></span> 上传车辆信息
                     </div>
-                    <div class="tpl-portlet-input tpl-fz-ml">
-                        <div class="portlet-input input-small input-inline">
-                            <div class="input-icon right">
-                                <i class="am-icon-search"></i>
-                                <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
-                        </div>
-                    </div>
-
-
                 </div>
                 <div class="tpl-block ">
                     <div class="am-g tpl-amazeui-form">
@@ -52,59 +45,49 @@
                         
                             <form id="song_upload_table" class="am-form am-form-horizontal">
                                 <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">用户号</label>
+                                    <label for="user-id" class="am-u-sm-3 am-form-label">用户号</label>
                                     <div class="am-u-sm-9">
-                                        <input onblur="checkUserId()" type="text" name="userId" placeholder="输入用户号">
+                                        <input onblur="checkUserId()" type="text" id="userId" placeholder="输入用户号">
                                         <small>用户号</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-3 am-form-label">车主名称</label>
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">车主名称</label>
                                     <div class="am-u-sm-9">
-                                        <input onblur="checkUserName()" type="text" name="userName" placeholder="输入车主名称">
+                                        <input onblur="checkUserName()" type="text" id="userName" placeholder="输入车主名称">
                                         <small>车主名称</small>
                                     </div>
                                 </div>
                                 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-3 am-form-label">车辆品牌</label>
+                                    <label for="car-brand" class="am-u-sm-3 am-form-label">车辆品牌</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" name="carBrand" placeholder="输入车辆品牌">
+                                        <input type="text" name="carBrand" id="carBrand" placeholder="输入车辆品牌">
                                         <small>品牌</small>
                                     </div>
                                 </div>
                                 
                                 <div class="am-form-group">
-                                    <label for="user-email" class="am-u-sm-3 am-form-label">车牌号</label>
+                                    <label for="car-number" class="am-u-sm-3 am-form-label">车牌号</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" name="carBrand" placeholder="输入车牌号">
+                                        <input type="text" name="carNumber" id="carNumber" placeholder="输入车牌号">
                                         <small>车牌</small>
                                     </div>
                                 </div>
 								
 								<div class="am-form-group">
-                                    <label for="user_issue_date" class="am-u-sm-3 am-form-label">车颜色</label>
+                                    <label for="car-color" class="am-u-sm-3 am-form-label">车颜色</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" name="songIssueDate" placeholder="输入车颜色">
+                                        <input type="text" name="carColor" id="carColor" placeholder="输入车颜色">
                                         <small>颜色</small>
                                     </div>
                                 </div>
-								
-                                <div class="am-form-group">
-                                    <label for="user-phone" class="am-u-sm-3 am-form-label">歌曲链接</label>
-                                    <div class="am-u-sm-9">
-                                        <input onchange="set_song_time();" id="song_url" type="text" name="songUrl" placeholder="输入歌曲链接">
-                                    </div>
-                                </div>
 
-                                
-
-   
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button type="button" id="add_music" class="am-btn am-btn-primary">上传车辆信息</button>
+                                        <button type="button" id="add_car" class="am-btn am-btn-primary">上传车辆信息</button>
                                     </div>
                                 </div>
                             </form>
@@ -118,8 +101,8 @@
         </div>
 
    
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/app.js"></script> 
+    <script src="static/js/cookie.js"></script>
     <script src="static/js/car_upload.js"></script>
+    
 </body>
 </html>

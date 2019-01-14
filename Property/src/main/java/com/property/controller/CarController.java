@@ -1,5 +1,6 @@
 package com.property.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.property.bean.Car;
 import com.property.bean.Msg;
-import com.property.bean.User;
 import com.property.service.CarService;
 
 @Controller
@@ -58,7 +58,7 @@ public class CarController {
 	}
 	
 	/**
-	 * 按车辆id修改用户信息
+	 * 按车辆id修改车辆信息
 	 */
 	@ResponseBody
 	@RequestMapping("updateCarInformation")
@@ -75,5 +75,77 @@ public class CarController {
 		carService.updateCarInformation(car);
 		return Msg.success();
 	}
+	
+	/***
+	 * 增加车辆信息提交
+	 */
+	@ResponseBody
+	@RequestMapping("uploadCarInformation")
+	public Msg uploadCarInformation(@Valid Car car,BindingResult result) {
+		if (result.hasErrors()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<FieldError> list = result.getFieldErrors();
+			for (FieldError fieldError : list) {
+				map.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+			return Msg.error().add("msg", map);
+		}
+		carService.insertUser(car);
+
+		return Msg.success();
+	}
+	
+	/***
+	 * 根据车辆ID删除车辆信息
+	 */
+	@ResponseBody
+	@RequestMapping("deleteCarById")
+	public Msg deleteCarById(int id) {
+		int flag = carService.deleteUserById(id);
+		if (flag != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/***
+	 * 批量删除
+	 */
+	@ResponseBody
+	@RequestMapping("deleteCarByCheckBox")
+	public Msg deleteCarByCheckBox(String ids) {
+		if (ids.contains("-")) {
+			List<Integer> list = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String id : str_ids) {
+				list.add(Integer.parseInt(id));
+			}
+			carService.deleteUserByCheckBox(list);
+		} else {
+			carService.deleteUserById(Integer.parseInt(ids));
+		}
+		return Msg.success();
+	}
+	
+	/**
+	 * 按所有查询模糊查询
+	 */
+	@ResponseBody
+	@RequestMapping("selectBlurry")
+	public Msg selectBlurry(String string) {
+		PageHelper.startPage(1, 10);
+
+		List<Car> list = carService.selectBlurry(string);
+		PageInfo<Car> pageInfo = new PageInfo<Car>(list);
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
+	
+	
+	
+	
+	
 	
 }

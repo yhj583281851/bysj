@@ -132,16 +132,28 @@ public class UserService {
 
 		userMapper.deleteByExample(userExample);
 	}
-
+	
 	/**
-	 * 按点击数和类别class查询并排序歌曲
+	 * 根据userId检查该用户是否存在
 	 */
-	public List<User> selectUserByClass(int id) {
+	public List<User> verifyUserById(int userId) {
 		UserExample userExample = new UserExample();
 		Criteria criteria = userExample.createCriteria();
-		criteria.andUserTypeEqualTo(id);
+		criteria.andUserIdEqualTo(userId);
 		return userMapper.selectByExample(userExample);
 	}
+	
+	/**
+	 * 根据userName检查该用户是否存在
+	 */
+	public List<User> verifyUserByName(String userName) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserNameEqualTo(userName);
+		return userMapper.selectByExample(userExample);
+	}
+
+	
 
 	
 }

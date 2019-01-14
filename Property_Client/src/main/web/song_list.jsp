@@ -216,7 +216,7 @@
 
     
     <!-- static/js/ -->
-        <script src="static/js/cookie.js"></script>
+    <script src="static/js/cookie.js"></script>
     <script src="static/js/song_list.js"></script>
     
 </body>

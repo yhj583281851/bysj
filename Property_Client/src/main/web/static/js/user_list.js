@@ -198,8 +198,9 @@ $(document).on("click",".face_btn",function(){
 //用户车辆按钮
 $(document).on("click",".car_btn",function(){
 	var id = $(this).attr("car_id");
-	alert(id);
-	
+	setCookie("insert_userId",id);
+	window.location.href="car_upload.jsp";
+	window.event.returnValue=false;
 });
 
 //编辑提交按钮

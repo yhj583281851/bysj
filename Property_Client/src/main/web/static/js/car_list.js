@@ -32,9 +32,7 @@ function to_page(pn){
 //动态创建展示列表
 function build_car_table(datas){
 	$("#car_table tbody").empty();
-	
 	var list = datas.data.pageInfo.list;
-	
 	$.each(list,function(index,car){
 		var checkbox = $("<td><input type='checkbox' class='check_item'/></td>");
 		var carId = $("<td></td>").append(car.carId);
@@ -45,12 +43,10 @@ function build_car_table(datas){
 		
 		var editBtn = $("<button class='am-btn am-btn-default am-btn-xs am-text-secondary edit_btn'><span class='am-icon-pencil-square-o'></span> 编辑</button>");
 		var deleteBtn = $("<button class='am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_btn'><span class='am-icon-trash-o'></span> 删除</button>");
-		//为编辑和删除按钮设置id
-		
+		//为编辑和删除按钮设置id	
 		
 		editBtn.attr("edit_id",car.carId);
 		deleteBtn.attr("delete_id",car.carId);
-		
 		
 		var Btn = $("<td><div class='am-btn-toolbar'><div class='am-btn-group am-btn-group-xs'></div></div></td>").append(editBtn).append(deleteBtn);
 		$("<tr></tr>").append(checkbox).append(carId).append(userId).append(carBrand).append(carNumber).append(carColor).append(Btn).appendTo("#car_table");
@@ -183,11 +179,11 @@ $("#car_update_btn").click(function(){
 	});
 });
 
-//歌手删除按钮
+//车辆删除按钮
 $(document).on("click",".delete_btn",function(){
 	var id = $(this).attr("delete_id");
-	var name = $(this).parents("tr").find("td:eq(2)").text();
-	if(confirm("确定要删除("+id+")"+name+"吗？")){
+	var name = $(this).parents("tr").find("td:eq(4)").text();
+	if(confirm("确定要删除   "+id+"号    车牌为：["+name+"]吗？")){
 		$.ajax({
 			url:"http://169.254.151.231:8080/Property/deleteCarById",
 			data:"id="+id,
@@ -211,7 +207,7 @@ $("#car_delete_all_btn").click(function(){
 	//循环取出checkbox名字
 	$.each($(".check_item:checked"),function(index,item){
 		ids += $(this).parents("tr").find("td:eq(1)").text() + "-";
-		names += $(this).parents("tr").find("td:eq(2)").text() + ",";
+		names += $(this).parents("tr").find("td:eq(4)").text() + ",";
 	});
 	ids = ids.substring(0,ids.length-1);
 	names = names.substring(0,names.length-1);
@@ -225,7 +221,8 @@ $("#car_delete_all_btn").click(function(){
 				to_page(pageNum);
 			},
 			error:function(){
-				alert("批量删除失败，["+ids+"],["+names+"]");
+				//alert("批量删除失败，["+ids+"],["+names+"]");
+				to_page(pageNum);
 			}
 		});
 	}
@@ -264,8 +261,8 @@ function checkcarName(name){
 $("#car_select_btn").click(function(){
 	var string = $("#car_select").val();
 	$.ajax({
-		url:"http://169.254.151.231:8080/Property/selectCarByName",
-		data:"name="+string,
+		url:"http://169.254.151.231:8080/Property/selectBlurry",
+		data:"string="+string,
 		type:"post",
 		dataType:"jsonp",
 		success:function(datas){

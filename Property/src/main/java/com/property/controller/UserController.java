@@ -94,7 +94,6 @@ public class UserController {
 	/**
 	 * 添加用户
 	 */
-
 	@ResponseBody
 	@RequestMapping("insertUser")
 	public Msg insertUser(@Valid User user, BindingResult result) {
@@ -179,24 +178,7 @@ public class UserController {
 		return Msg.success();
 	}
 
-	/**
-	 * 按点击数和类别class查询并排序歌曲
-	 */
-	@ResponseBody
-	@RequestMapping("selectUserByClass")
-	public Msg selectUserByClass(@RequestParam(value = "pn", defaultValue = "1") Integer pn, int id) {
-		PageHelper.startPage(pn, 5);
 
-		List<User> list = userService.selectUserByClass(id);
-		PageInfo<User> pageInfo = new PageInfo<User>(list);
-		if (list.size() != 0) {
-			return Msg.success().add("pageInfo", pageInfo);
-		}
-		return Msg.error();
-	}
-	
-	
-	
 	
 	/**
 	 * 检查重复账号名
@@ -212,6 +194,35 @@ public class UserController {
 	}
 	
 	
+	
+	
+	/***
+	 * 通过用户id验证用户是否存在
+	 */
+	@ResponseBody
+	@RequestMapping("verifyUserById")
+	public Msg verifyUserById(@RequestParam(value = "userId", defaultValue = "0") Integer userId) {
+		List<User> users = userService.verifyUserById(userId);
+		if (users.size() != 0) {
+			User user = users.get(0);
+			return Msg.success().add("userName", user.getUserName());
+		}
+		return Msg.error();
+	}
+	
+	/***
+	 * 通过用户name验证用户是否存在
+	 */
+	@ResponseBody
+	@RequestMapping("verifyUserByName")
+	public Msg verifyUserByName(@RequestParam(value = "userName", defaultValue = "") String userName) {
+		List<User> users = userService.verifyUserByName(userName);
+		if (users.size() != 0) {
+			User user = users.get(0);
+			return Msg.success().add("userId", user.getUserId());
+		}
+		return Msg.error();
+	}
 	
 	
 }
