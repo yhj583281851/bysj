@@ -146,7 +146,7 @@
 						<div class="form-group">
 							<label for="exampleInputPassword1">用户类型（0-管理员，1-住户，2-游客）</label> <input type="text"
 								class="form-control" id="insert_user_type" name="userType"
-								placeholder="请选择用户类型"> <span class="help-block"></span>
+								placeholder="请输入用户类型"> <span class="help-block"></span>
 						</div>
 						
 
@@ -209,7 +209,7 @@
                         	<!-- 查询按钮 -->
                         <div class="am-u-sm-12 am-u-md-3">
                             <div class="am-input-group am-input-group-sm">
-                                <input type="text" id="user_select" class="am-form-field" placeholder="请输入账号进行查询">
+                                <input type="text" id="user_select" class="am-form-field" placeholder="请输入需要查询的内容">
                                 <span class="am-input-group-btn">
             <button id="user_select_btn" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="button"></button>
           </span>
@@ -258,12 +258,7 @@
                 </div>
                 <div class="tpl-alert"></div>
             </div>
-
-
-
-
         </div>
-
     </div>
 
 

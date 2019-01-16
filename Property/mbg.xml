@@ -43,8 +43,8 @@
 		<!-- 指定生成策略 -->
 		<!-- <table tableName="admin" domainObjectName="Admin"></table> -->
 		<!-- <table tableName="User" domainObjectName="User"></table> -->
-		<!-- <table tableName="Face" domainObjectName="Face"></table> -->
-		<table tableName="Car" domainObjectName="Car"></table>
+		<table tableName="Face" domainObjectName="Face"></table>
+		<!-- <table tableName="Car" domainObjectName="Car"></table> -->
 		
 	</context>
 </generatorConfiguration>

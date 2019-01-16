@@ -39,13 +39,10 @@ public class CarService {
 	 * 按车辆id修改车辆信息
 	 */
 	public void updateCarInformation(Car car) {
-		System.out.println("service:"+car);
 		CarExample carExample = new CarExample();
 		Criteria criteria = carExample.createCriteria();
 		criteria.andCarIdEqualTo(car.getCarId());
 		carMapper.updateByExampleSelective(car, carExample);
-
-		//return CarMapper.updateByPrimaryKey(car);
 	}
 
 	/***
@@ -78,34 +75,52 @@ public class CarService {
 	 * 对所有条件模糊查询
 	 */
 	public List<Car> selectBlurry(String string) {
+		/***
+		 * 
+		 * 
+		 * 	把ajax请求地址从196.254.151.231改成locaohost解决中文乱码问题
+		 * 
+		 */
 		CarExample carExample = new CarExample();
-		
-		String condiction = "%"+string+"%";
-		
-		
-		
-		System.out.println(condiction);
-		
-	
-		
 		Criteria criteria1 =carExample.createCriteria();
-		criteria1.andCarBrandLike(condiction);		
 		Criteria criteria2 = carExample.createCriteria();
-		criteria2.andCarColorLike(condiction);
 		Criteria criteria3 = carExample.createCriteria();
-		criteria3.andCarNumberLike(condiction);
-		Criteria criteria4 = carExample.createCriteria();
-		
-		carExample.or(criteria2);
-		carExample.or(criteria3);
-		
-		
-
-
-		
-		
+		if(isNumber(string)) {
+			criteria1.andCarIdEqualTo(Integer.parseInt(string));
+			criteria2.andUserIdEqualTo(Integer.parseInt(string));
+			carExample.or(criteria2);
+		}else {
+			String condiction = "%"+string+"%";
+			criteria1.andCarBrandLike(condiction);
+			criteria2.andCarColorLike(condiction);
+			criteria3.andCarNumberLike(condiction);
+			carExample.or(criteria2);
+			carExample.or(criteria3);
+		}
+	
 		return carMapper.selectByExample(carExample);
-		
+	}
+
+	/***
+	 * 通过userId检查该用户是否有车，并返回集合
+	 */
+	public List<Car> checkHaveCar(int userId) {
+		CarExample carExample = new CarExample();
+		Criteria criteria = carExample.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		return carMapper.selectByExample(carExample);
+	}
+
+	/***
+	 * 判断字符串是否为数字
+	 */
+	public static boolean isNumber(String string) {
+		for(int i=0;i<string.length();i++) {
+			if(!Character.isDigit(string.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

@@ -63,7 +63,6 @@ public class CarController {
 	@ResponseBody
 	@RequestMapping("updateCarInformation")
 	public Msg updateCarInformation(@Valid Car car,BindingResult result) {
-		System.out.println("controller：" + car);
 		if (result.hasErrors()) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<FieldError> list = result.getFieldErrors();
@@ -134,7 +133,6 @@ public class CarController {
 	@RequestMapping("selectBlurry")
 	public Msg selectBlurry(String string) {
 		PageHelper.startPage(1, 10);
-
 		List<Car> list = carService.selectBlurry(string);
 		PageInfo<Car> pageInfo = new PageInfo<Car>(list);
 		if (list.size() != 0) {
@@ -143,6 +141,32 @@ public class CarController {
 		return Msg.error();
 	}
 	
+	/***
+	 * 根据用户号查询返回所有车辆
+	 */
+	@ResponseBody
+	@RequestMapping("selectAllCarByUserId")
+	public Msg selectAllCarByUserId(int userId) {
+		PageHelper.startPage(1, 10);
+
+		List<Car> list = carService.checkHaveCar(userId);
+		PageInfo<Car> pageInfo = new PageInfo<Car>(list);
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
+	
+	/**
+	 * 根据userId检查用户拥有的车辆数
+	 */
+	@ResponseBody
+	@RequestMapping("checkHaveCar")
+	public Msg checkHaveCar(int userId) {
+		PageHelper.startPage(1, 10);
+		List<Car> list = carService.checkHaveCar(userId);
+		return Msg.success().add("carsize",list.size());
+	}
 	
 	
 	

@@ -3,7 +3,11 @@ package com.property.bean;
 public class Face {
     private Integer faceId;
 
-    private byte[] facePic;
+    private Integer userId;
+
+    private String userName;
+
+    private String faceToken;
 
     public Integer getFaceId() {
         return faceId;
@@ -13,11 +17,27 @@ public class Face {
         this.faceId = faceId;
     }
 
-    public byte[] getFacePic() {
-        return facePic;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setFacePic(byte[] facePic) {
-        this.facePic = facePic;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getFaceToken() {
+        return faceToken;
+    }
+
+    public void setFaceToken(String faceToken) {
+        this.faceToken = faceToken == null ? null : faceToken.trim();
     }
 }

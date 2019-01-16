@@ -26,7 +26,7 @@ public static void main(String[] args) throws Exception{
         map.put("api_secret", "GCWXYqnHyHUynUbgMPWm2pftR0GaGJBD");
         map.put("display_name", "FaceSet≤‚ ‘create2");
         map.put("outer_id", "test002");
-        map.put("tags", "test,trash");
+        //map.put("tags", "test,trash");
         //map.put("face_tokens", "");
         map.put("user_data", "hj");
         

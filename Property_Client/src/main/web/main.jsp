@@ -76,7 +76,7 @@
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
                     <li class="tpl-left-nav-item">
-                        <a href="indextest.jsp" class="nav-link active" target="mainframe">
+                        <a href="indextest.jsp?#" class="nav-link active" target="mainframe">
                             <i class="am-icon-home"></i>
                             <span>首页</span>
                         </a>
@@ -111,20 +111,21 @@
                             <span>人脸信息</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
                         </a>
-                        <ul class="tpl-left-nav-sub-menu">
+                        <!-- 此处删去 style="display: block;"则变为自动隐藏 -->
+                        <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
-                                <a href="song_list.jsp?#" target="mainframe">
+                                <a href="face_list.jsp?#" target="mainframe">
                                     <i class="am-icon-angle-right"></i>
-                                    <span>所有歌曲</span>
+                                    <span>所有人脸信息</span>
                                     <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                                 </a>
 
-                                <a href="face_upload.jsp" target="mainframe">
+                                <!-- <a href="face_upload.jsp?#" target="mainframe">
                                     <i class="am-icon-angle-right"></i>
                                     <span>上传人脸</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
 						               18
-						             </i>
+						             </i> -->
                             </li>
                         </ul>
                     </li>
@@ -164,13 +165,13 @@
                         </a>
                         <ul class="tpl-left-nav-sub-menu" style="display: block;">
                             <li>
-                                <a href="song_comments_list.jsp"  target="mainframe">
+                                <a href="song_comments_list.jsp?#"  target="mainframe">
                                     <i class="am-icon-angle-right"></i>
                                     <span>歌曲评论</span>
                                     <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                                 </a>
 
-                                <a href="sheet_comments_list.jsp"  target="mainframe">
+                                <a href="sheet_comments_list.jsp?#"  target="mainframe">
                                     <i class="am-icon-angle-right"></i>
                                     <span>歌单评论</span>
                                 </a>

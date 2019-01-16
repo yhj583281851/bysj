@@ -34,14 +34,14 @@ function to_page(pn,type){
 		});
 	}else{
 		$.ajax({
-			url:"http://localhost:8080/Property/selectUserByClass",
-			data:"id="+type,
+			url:"http://localhost:8080/Property/selectByClass",
+			data:"type="+(--type),
 			type:"post",
 			dataType:"jsonp",
 			success:function(datas){
 				build_user_table(datas);
 				build_user_info(datas);
-				build_user_nav_class(datas);
+				build_user_nav(datas);
 			},
 			error:function(){
 				
@@ -98,7 +98,6 @@ function build_user_info(datas){
 //上下页码
 function build_user_nav(datas){
 	$("#page_nav").empty();
-	
 	var ul = $("<ul></ul>").addClass("am-pagination tpl-pagination");
 	//首页
 	var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
@@ -118,7 +117,6 @@ function build_user_nav(datas){
 			to_page(datas.data.pageInfo.pageNum-1,type);
 		});
 	}
-	
 	//循环输出1、2、3、4、5、6页
 	$.each(datas.data.pageInfo.navigatepageNums,function(index,item){
 		var numLi = $("<li></li>").append($("<a></a>").append(item).attr("href","#"));
@@ -130,7 +128,6 @@ function build_user_nav(datas){
 			to_page(item,type);
 		});
 	});
-	
 	//尾页
 	var lastPageLi = $("<li></li>").append($("<a></a>").append("尾页").attr("href","#"));
 	//下一页
@@ -149,9 +146,7 @@ function build_user_nav(datas){
 			to_page(datas.data.pageInfo.pageNum+1,type);
 		});
 	}
-	
 	ul.appendTo("#page_nav");
-	
 }
 
 //根据id查询用户信息并再update_modal模态框赋值
@@ -173,7 +168,6 @@ function select_user_by_id(id){
 			$("#update_user_type").val(user.userType);
 		},
 		error:function(){
-			
 		}
 	});
 }
@@ -185,23 +179,69 @@ $(document).on("click",".edit_btn",function(){
 	$("#update_modal").modal({
 		backdrop : "static"
 	});
-	
 });
 
 //用户人脸按钮
 $(document).on("click",".face_btn",function(){
-	var id = $(this).attr("face_id");
-	alert(id);
+	var userId = $(this).attr("face_id");
+	checkHaveFace(userId);
+	//window.location.href="car_upload.jsp";
+	window.event.returnValue=false;
 	
 });
 
+//判断该用户是否录入人脸信息
+function checkHaveFace(userId){
+	$.ajax({
+		url:"http://localhost:8080/Property/checkHaveFace",
+		data:"userId="+userId,
+		type:"post",
+		dataType:"jsonp",
+		success:function(datas){
+			var num = datas.data.facesize;
+			if(num!=0){
+				setCookie("select_faceId",userId);
+				window.location.href="face_list.jsp?#"
+			}else{
+				setCookie("face_upload_userId",userId);
+				window.location.href="face_upload.jsp?#";
+			}	
+		},
+		error:function(){
+			
+		}
+	});
+}
+
 //用户车辆按钮
 $(document).on("click",".car_btn",function(){
-	var id = $(this).attr("car_id");
-	setCookie("insert_userId",id);
-	window.location.href="car_upload.jsp";
+	var userId = $(this).attr("car_id");
+	checkHaveCar(userId);
+	//window.location.href="car_upload.jsp";
 	window.event.returnValue=false;
 });
+
+//判断该用户是否有车
+function checkHaveCar(userId){
+	$.ajax({
+		url:"http://localhost:8080/Property/checkHaveCar",
+		data:"userId="+userId,
+		type:"post",
+		dataType:"jsonp",
+		success:function(datas){
+			var num = datas.data.carsize;
+			if(num!=0){
+				setCookie("insert_userId",userId);
+				window.location.href="car_list.jsp?#"
+			}else{
+				window.location.href="car_upload.jsp?#";
+			}	
+		},
+		error:function(){
+			
+		}
+	});
+}
 
 //编辑提交按钮
 $("#user_update_btn").click(function(){
@@ -360,29 +400,30 @@ function checkUserAccount(account){
 //查询按钮
 $("#user_select_btn").click(function(){
 	var string = $("#user_select").val();
-	
-	$.ajax({
-		url:"http://localhost:8080/Property/selectUserByAccountLike",
-		data:"account="+string,
-		type:"post",
-		dataType:"jsonp",
-		success:function(datas){
-			build_user_table(datas);
-			build_user_info(datas);
-			build_user_nav(datas);
-		},
-		error:function(){
-			alert("查询失败");
-		}
-	});
-	
+	if(string==""){
+		to_page(1,type);
+	}else{
+		$.ajax({
+			url:"http://localhost:8080/Property/selectUserBlurry",
+			data:"string="+string,
+			type:"post",
+			dataType:"jsonp",
+			success:function(datas){
+				build_user_table(datas);
+				build_user_info(datas);
+				build_user_nav(datas);
+			},
+			error:function(){
+				alert("查询失败");
+			}
+		});
+	}
 });
 
 //类型选择
 function classchange(){
 	var classId = $("#select_box").val();
-	type=classId;
-	to_page(1,type);
+	to_page(1,classId);
 }
 
 

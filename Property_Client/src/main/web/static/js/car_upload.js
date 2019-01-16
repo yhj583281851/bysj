@@ -4,6 +4,7 @@ var all_userId;		//外链进来的需要录入车辆信息的业主号
 $(function(){
 	
 	checkInsertUserId();
+	delCookie("insert_userId");
 });
 
 

@@ -13,27 +13,45 @@ $(function(){
 
 //检查是否有外链userId进行条件查询
 function checkHaveCondiction(){
-	var num = getCookie("insert_userId");
+	var num = getCookie("select_faceId");
+	delCookie("select_faceId");
 	if(num != ""){
-		checkAllCarByUserId(num);
+		checkFaceByUserId(num);
 	}else{
 		to_page(1);
 		to_page(1);;
 	}
-	delCookie("insert_userId");
+}
+
+//根据userId查询
+function checkFaceByUserId(num){
+	$.ajax({
+		url:"http://localhost:8080/Property/selectFaceByUserId",
+		data:"userId="+num,
+		type:"post",
+		dataType:"jsonp",
+		success:function(datas){
+			build_face_table(datas);
+			build_face_info(datas);
+			build_face_nav(datas);
+		},
+		error:function(){
+			alert("查询失败");
+		}
+	});
 }
 
 //跳转至第几页
 function to_page(pn){
 	$.ajax({
-		url:"http://localhost:8080/Property/selectOnePageCar",
+		url:"http://localhost:8080/Property/selectOnePageFace",
 		data:"pn="+pn,
 		type:"post",
 		dataType:"jsonp",
 		success:function(datas){
-			build_car_table(datas);
-			build_car_info(datas);
-			build_car_nav(datas);
+			build_face_table(datas);
+			build_face_info(datas);
+			build_face_nav(datas);
 		},
 		error:function(){
 			
@@ -42,38 +60,37 @@ function to_page(pn){
 }
 
 //动态创建展示列表
-function build_car_table(datas){
-	$("#car_table tbody").empty();
+function build_face_table(datas){
+	$("#face_table tbody").empty();
 	var list = datas.data.pageInfo.list;
-	$.each(list,function(index,car){
+	$.each(list,function(index,face){
 		var checkbox = $("<td><input type='checkbox' class='check_item'/></td>");
-		var carId = $("<td></td>").append(car.carId);
-		var userId = $("<td></td>").append(car.userId);
-		var carBrand = $("<td></td>").append(car.carBrand);
-		var carNumber = $("<td></td>").append(car.carNumber);
-		var carColor = $("<td></td>").append(car.carColor);
+		var faceId = $("<td></td>").append(face.faceId);
+		var userId = $("<td></td>").append(face.userId);
+		var userName = $("<td></td>").append(face.userName);
+		var faceToken = $("<td></td>").append(face.faceToken);
 		
 		var editBtn = $("<button class='am-btn am-btn-default am-btn-xs am-text-secondary edit_btn'><span class='am-icon-pencil-square-o'></span> 编辑</button>");
 		var deleteBtn = $("<button class='am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_btn'><span class='am-icon-trash-o'></span> 删除</button>");
 		//为编辑和删除按钮设置id	
 		
-		editBtn.attr("edit_id",car.carId);
-		deleteBtn.attr("delete_id",car.carId);
+		editBtn.attr("edit_id",face.faceId);
+		deleteBtn.attr("delete_id",face.faceId);
 		
 		var Btn = $("<td><div class='am-btn-toolbar'><div class='am-btn-group am-btn-group-xs'></div></div></td>").append(editBtn).append(deleteBtn);
-		$("<tr></tr>").append(checkbox).append(carId).append(userId).append(carBrand).append(carNumber).append(carColor).append(Btn).appendTo("#car_table");
+		$("<tr></tr>").append(checkbox).append(faceId).append(userId).append(userName).append(faceToken).append(Btn).appendTo("#face_table");
 	});
 }
 
 //解析展示分页信息
-function build_car_info(datas){
+function build_face_info(datas){
 	pageNum = datas.data.pageInfo.pageNum;
 	pages = datas.data.pageInfo.pages;
 	
 }
 
 //上下页码
-function build_car_nav(datas){
+function build_face_nav(datas){
 	$("#page_nav").empty();
 	
 	var ul = $("<ul></ul>").addClass("am-pagination tpl-pagination");
@@ -131,20 +148,18 @@ function build_car_nav(datas){
 	
 }
 
-//根据id查询车辆信息并再update_modal模态框赋值
-function select_car_by_id(id){
+//根据id查询人脸信息并再update_modal模态框赋值
+function select_face_by_id(id){
 	$.ajax({
-		url:"http://localhost:8080/Property/selectCarByCarId",
+		url:"http://localhost:8080/Property/selectFaceByFaceId",
 		type:"post",
 		data:"id="+id,
 		dataType:"jsonp",
 		success:function(datas){
-			var car = datas.data.car;
-			$("#update_user_id").val(car.userId);
-			$("#update_car_brand").val(car.carBrand);
-			$("#update_car_number").val(car.carNumber);
-			$("#update_car_color").val(car.carColor);
-			//updateName = car.carName;
+			var face = datas.data.face;
+			$("#update_user_id").val(face.userId);
+			$("#update_user_name").val(face.userName);
+			$("#update_face_token").val(face.faceToken);
 		},
 		error:function(){
 			
@@ -152,10 +167,10 @@ function select_car_by_id(id){
 	});
 }
 
-//车辆编辑按钮
+//人脸编辑按钮
 $(document).on("click",".edit_btn",function(){
-	select_car_by_id($(this).attr("edit_id"));
-	$("#car_update_btn").attr("edit_id",$(this).attr("edit_id"));
+	select_face_by_id($(this).attr("edit_id"));
+	$("#face_update_btn").attr("edit_id",$(this).attr("edit_id"));
 	$("#update_modal").modal({
 		backdrop : "static"
 	});
@@ -163,38 +178,20 @@ $(document).on("click",".edit_btn",function(){
 });
 
 //编辑提交按钮
-$("#car_update_btn").click(function(){
+$("#face_update_btn").click(function(){
 	var id = $(this).attr("edit_id");
-	var serialize = $("#update_modal form").serialize()
-	//解决序列化中文乱码问题
-	serialize = decodeURIComponent(serialize,true);
-	var string = "carId="+id+"&"+serialize;
-	$.ajax({
-		url:"http://localhost:8080/Property/updateCarInformation",
-		data:string,
-		type:"post",
-		dataType:"jsonp",
-		success:function(datas){
-			if(datas.code == 100){
-				$("#update_modal").modal("hide");
-				to_page(pageNum);
-			}else{
-			}
-			to_page(pageNum);
-		},
-		error:function(){
-			alert("提交失败！["+string+"]");
-		}
-	});
+	//跳转到上传人脸界面
+	setCookie("face_upload_userId",id);
+	window.location.href="face_upload.jsp?#";
 });
 
-//车辆删除按钮
+//人脸删除按钮
 $(document).on("click",".delete_btn",function(){
 	var id = $(this).attr("delete_id");
-	var name = $(this).parents("tr").find("td:eq(4)").text();
-	if(confirm("确定要删除   "+id+"号    车牌为：["+name+"]吗？")){
+	var name = $(this).parents("tr").find("td:eq(3)").text();
+	if(confirm("确定要删除  [ "+id+" ] 号    "+name+"   吗？")){
 		$.ajax({
-			url:"http://localhost:8080/Property/deleteCarById",
+			url:"http://localhost:8080/Property/deleteFaceById",
 			data:"id="+id,
 			type:"post",
 			dataType:"jsonp",
@@ -209,21 +206,21 @@ $(document).on("click",".delete_btn",function(){
 });
 
 //批量删除
-$("#car_delete_all_btn").click(function(){
+$("#face_delete_all_btn").click(function(){
 	var ids = "";
 	var names = "";
 	
 	//循环取出checkbox名字
 	$.each($(".check_item:checked"),function(index,item){
 		ids += $(this).parents("tr").find("td:eq(1)").text() + "-";
-		names += $(this).parents("tr").find("td:eq(4)").text() + ",";
+		names += $(this).parents("tr").find("td:eq(3)").text() + ",";
 	});
 	ids = ids.substring(0,ids.length-1);
 	names = names.substring(0,names.length-1);
 	
 	if(confirm("你确定要删除"+names+"吗？")){
 		$.ajax({
-			url:"http://localhost:8080/Property/deleteCarByCheckBox",
+			url:"http://localhost:8080/Property/deleteFaceByCheckBox",
 			type:"post",
 			data:"ids="+ids,
 			success:function(){
@@ -240,47 +237,23 @@ $("#car_delete_all_btn").click(function(){
 
 
 
-//添加账号，检查账号是否重复
-function checkcarName(name){
-	var flag = 1;
-	$.ajax({
-		url:"http://localhost:8080/Property/checkCarName",
-		type:"post",
-		data:"name="+name,
-		dataType:"jsonp",
-		async: false,
-		success:function(datas){
-				if(datas.code == 100){
-					//可以使用，返回1
-					flag = 1;
-				}
-				else if(datas.code == 200){
-					flag = 0;
-				}
-		},
-		error:function(){
-			alert("检验用户名出错");
-		}
-	});
-	return flag;
-};
 
 
 //查询按钮
-$("#car_select_btn").click(function(){
-	var string = $("#car_select").val();
+$("#face_select_btn").click(function(){
+	var string = $("#face_select").val();
 	if(string==""){
 		to_page(1);
 	}else{
 		$.ajax({
-			url:"http://localhost:8080/Property/selectBlurry",
+			url:"http://localhost:8080/Property/selectFaceBlurry",
 			data:"string="+string,
 			type:"post",
 			dataType:"jsonp",
 			success:function(datas){
-				build_car_table(datas);
-				build_car_info(datas);
-				build_car_nav(datas);
+				build_face_table(datas);
+				build_face_info(datas);
+				build_face_nav(datas);
 			},
 			error:function(){
 				alert("查询失败");
@@ -289,23 +262,7 @@ $("#car_select_btn").click(function(){
 	}
 });
 
-//通过userId精确查询该用户的所有车辆
-function checkAllCarByUserId(userId){
-	$.ajax({
-		url:"http://localhost:8080/Property/selectAllCarByUserId",
-		data:"userId="+userId,
-		type:"post",
-		dataType:"jsonp",
-		success:function(datas){
-			build_car_table(datas);
-			build_car_info(datas);
-			build_car_nav(datas);
-		},
-		error:function(){
-			alert("查询失败");
-		}
-	});
-}
+
 
 
 //全选按钮

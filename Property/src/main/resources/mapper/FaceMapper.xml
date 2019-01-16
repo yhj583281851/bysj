@@ -3,9 +3,9 @@
 <mapper namespace="com.property.dao.FaceMapper">
   <resultMap id="BaseResultMap" type="com.property.bean.Face">
     <id column="face_id" jdbcType="INTEGER" property="faceId" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.property.bean.Face">
-    <result column="face_pic" jdbcType="LONGVARBINARY" property="facePic" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="face_token" jdbcType="VARCHAR" property="faceToken" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,27 +66,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    face_id
+    face_id, user_id, user_name, face_token
   </sql>
-  <sql id="Blob_Column_List">
-    face_pic
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.property.bean.FaceExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from face
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.property.bean.FaceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -101,11 +82,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from face
     where face_id = #{faceId,jdbcType=INTEGER}
   </select>
@@ -120,8 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.property.bean.Face">
-    insert into face (face_id, face_pic)
-    values (#{faceId,jdbcType=INTEGER}, #{facePic,jdbcType=LONGVARBINARY})
+    insert into face (face_id, user_id, user_name, 
+      face_token)
+    values (#{faceId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{faceToken,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.property.bean.Face">
     insert into face
@@ -129,16 +110,28 @@
       <if test="faceId != null">
         face_id,
       </if>
-      <if test="facePic != null">
-        face_pic,
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="faceToken != null">
+        face_token,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="faceId != null">
         #{faceId,jdbcType=INTEGER},
       </if>
-      <if test="facePic != null">
-        #{facePic,jdbcType=LONGVARBINARY},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="faceToken != null">
+        #{faceToken,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -154,25 +147,26 @@
       <if test="record.faceId != null">
         face_id = #{record.faceId,jdbcType=INTEGER},
       </if>
-      <if test="record.facePic != null">
-        face_pic = #{record.facePic,jdbcType=LONGVARBINARY},
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceToken != null">
+        face_token = #{record.faceToken,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update face
-    set face_id = #{record.faceId,jdbcType=INTEGER},
-      face_pic = #{record.facePic,jdbcType=LONGVARBINARY}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByExample" parameterType="map">
     update face
-    set face_id = #{record.faceId,jdbcType=INTEGER}
+    set face_id = #{record.faceId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      face_token = #{record.faceToken,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,15 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.property.bean.Face">
     update face
     <set>
-      <if test="facePic != null">
-        face_pic = #{facePic,jdbcType=LONGVARBINARY},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="faceToken != null">
+        face_token = #{faceToken,jdbcType=VARCHAR},
       </if>
     </set>
     where face_id = #{faceId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.property.bean.Face">
+  <update id="updateByPrimaryKey" parameterType="com.property.bean.Face">
     update face
-    set face_pic = #{facePic,jdbcType=LONGVARBINARY}
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      face_token = #{faceToken,jdbcType=VARCHAR}
     where face_id = #{faceId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -16,6 +16,10 @@ import java.util.Random;
 
 import javax.net.ssl.SSLException;
 
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import sun.misc.BASE64Decoder;
 
 public class FaceUtil {
@@ -27,6 +31,9 @@ public class FaceUtil {
         String url = "https://api-cn.faceplusplus.com/facepp/v3/detect";
         String str = null;
         byte[] buff = getStringImage(imgString.substring(imgString.indexOf(",")+1));
+        
+
+        
         HashMap<String, String> map = new HashMap<>();
         HashMap<String, byte[]> byteMap = new HashMap<>();
         map.put("api_key", API_KEY);

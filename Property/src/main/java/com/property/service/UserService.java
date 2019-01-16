@@ -152,8 +152,57 @@ public class UserService {
 		criteria.andUserNameEqualTo(userName);
 		return userMapper.selectByExample(userExample);
 	}
-
 	
+	/***
+	 * 分类查询
+	 */
+	public List<User> selectByClass(int type) {
+		UserExample userExample = new UserExample();
+		Criteria criteria = userExample.createCriteria();
+		criteria.andUserTypeEqualTo(type);
+		return userMapper.selectByExample(userExample);
+	}
 
-	
+	/***
+	 * 按照所有条件模糊查询
+	 */
+	public List<User> selectUserBlurry(String condiction) {
+		UserExample userExample = new UserExample();
+		Criteria criteria1 = userExample.createCriteria();
+		Criteria criteria2 = userExample.createCriteria();
+		Criteria criteria3 = userExample.createCriteria();
+		Criteria criteria4 = userExample.createCriteria();
+		//判断传入的字符串是否为纯数字
+		if(isNumber(condiction)) {
+			//数字
+			criteria1.andUserIdEqualTo(Integer.parseInt(condiction));
+			criteria2.andUserAgeEqualTo(Integer.parseInt(condiction));
+			criteria3.andUserPhoneEqualTo(Integer.parseInt(condiction));
+			userExample.or(criteria2);
+			userExample.or(criteria3);
+		}else {
+			//字符串
+			String string = "%"+condiction+"%";
+			criteria1.andUserAccountLike(string);
+			criteria2.andUserSexLike(string);
+			criteria3.andUserAddressLike(string);
+			criteria4.andUserNameLike(string);
+			userExample.or(criteria2);
+			userExample.or(criteria3);
+			userExample.or(criteria4);
+		}
+		return userMapper.selectByExample(userExample);
+	}
+
+	/***
+	 * 判断字符串是否为数字
+	 */
+	public static boolean isNumber(String string) {
+		for(int i=0;i<string.length();i++) {
+			if(!Character.isDigit(string.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

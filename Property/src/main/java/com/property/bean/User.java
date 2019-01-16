@@ -90,4 +90,13 @@ public class User {
     public void setUserType(Integer userType) {
         this.userType = userType;
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userAccount=" + userAccount + ", userPassword=" + userPassword
+				+ ", userName=" + userName + ", userSex=" + userSex + ", userAge=" + userAge + ", userAddress="
+				+ userAddress + ", userPhone=" + userPhone + ", userType=" + userType + "]";
+	}
+    
+    
 }

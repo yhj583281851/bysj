@@ -19,6 +19,9 @@ import javax.net.ssl.SSLException;
 public class GetFaceSetDetail {
 public static void main(String[] args) throws Exception{
 		
+	//获取某个faceset的所有内容
+	
+	
 		String url = "https://api-cn.faceplusplus.com/facepp/v3/faceset/getdetail";
         HashMap<String, String> map = new HashMap<>();
         HashMap<String, byte[]> byteMap = new HashMap<>();

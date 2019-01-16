@@ -90,6 +90,20 @@ public class UserController {
 		return Msg.error();
 	}
 	
+	/**
+	 * 按账户模糊查询
+	 */
+	@ResponseBody
+	@RequestMapping("selectUserBlurry")
+	public Msg selectUserBlurry(String string) {
+		PageHelper.startPage(1, 5);
+		List<User> list = userService.selectUserBlurry(string);
+		PageInfo<User> pageInfo = new PageInfo<User>(list);
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
 	
 	/**
 	 * 添加用户
@@ -178,6 +192,23 @@ public class UserController {
 		return Msg.success();
 	}
 
+	/**
+	 * 按分类查询
+	 */
+	@ResponseBody
+	@RequestMapping("selectByClass")
+	public Msg selectByClass(int type) {
+		PageHelper.startPage(1, 5);
+
+		List<User> list = userService.selectByClass(type);
+
+		PageInfo<User> pageInfo = new PageInfo<User>(list);
+
+		if (list.size() != 0) {
+			return Msg.success().add("pageInfo", pageInfo);
+		}
+		return Msg.error();
+	}
 
 	
 	/**
