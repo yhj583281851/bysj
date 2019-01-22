@@ -99,6 +99,25 @@ public class FaceService {
 		return faceMapper.selectByExample(faceExample);
 	}
 	
+	/***
+	 * 将人脸信息录入数据库
+	 */
+	public int addFace(String userId, String userName, String token) {
+		Face face = new Face();
+		face.setUserId(Integer.parseInt(userId));
+		face.setUserName(userName);
+		face.setFaceToken(token);
+		return faceMapper.insert(face);
+	}
+
+	/***
+	 * 根据传入的userId删除原有的face数据
+	 */
+	public int deleteFaceByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 	
 }

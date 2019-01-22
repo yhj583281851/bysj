@@ -31,11 +31,10 @@ public class FaceController {
 	 */
 	@ResponseBody
 	@RequestMapping("facePhotoGraph")
-	//public Msg getFace(@RequestParam(value = "imgString") String imgString,(value = "name") String name) {
-	public Msg getFace(@RequestParam(value = "imgString", defaultValue = "null")String imgString,@RequestParam(value="name",defaultValue="null")String name) throws IOException {
+	public Msg getFace(@RequestParam(value = "imgString", defaultValue = "null")String imgString,@RequestParam(value="userId",defaultValue="null")String userId,@RequestParam(value="userName",defaultValue="null")String userName) throws IOException {
+	//public Msg getFace(@RequestParam(value = "imgString", defaultValue = "null")String imgString,@RequestParam(value="name",defaultValue="null")String name) throws IOException {
 		String token;
-		System.out.println("进入facePhotoGraph");
-		System.out.println("name:"+name);
+		System.out.println("userId:"+userId+",	userName:"+userName);
 		//解决因为跨域传值过程中“+”被替换成“ ”的问题
 		imgString = imgString.replace("＋", "+");
 		//System.out.println(imgString);
@@ -69,11 +68,7 @@ public class FaceController {
             System.out.println("上传成功");
             JSONObject josnToken = JSONObject.fromObject(faces.substring(1, faces.length()-1));
             token = josnToken.getString("face_token");
-            //录入进数据库
-/*            FaceUser user = new FaceUser();
-            user.setName(name);
-            user.setFaceToken(token);
-            faceService.add(user);*/
+            System.out.println("token:"+token);
        } catch (Exception e) {
             e.printStackTrace();
             return Msg.error();
@@ -183,6 +178,86 @@ public class FaceController {
 		}
 		return Msg.error();
 	}
+	
+	/***
+	 * 根据传入的userId,userName,token添加人脸信息
+	 */
+	@ResponseBody
+	@RequestMapping("addFaceByCondiction")
+	public Msg addFaceByCondiction(String userId,String userName,String token) {
+		int num =faceService.addFace(userId, userName, token);
+		if (num != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/***
+	 * 根据传入的userId删除原有的face数据
+	 */
+	@ResponseBody
+	@RequestMapping("deleteFaceByUserId")
+	public Msg deleteFaceByUserId(String userId) {
+		int num =faceService.deleteFaceByUserId(userId);
+		if (num != 0) {
+			return Msg.success();
+		}
+		return Msg.error();
+	}
+	
+	/***
+	 * 检验人脸是否能通过
+	 */
+	@ResponseBody
+	@RequestMapping("faceSearch")
+	public Msg faceSearch(String token) {
+		//使用token去search对比
+		System.out.println("userId:"+userId+",	userName:"+userName);
+		//解决因为跨域传值过程中“+”被替换成“ ”的问题
+		imgString = imgString.replace("＋", "+");
+		//System.out.println(imgString);
+		//data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAMgCAYAAADbcAZoAAAgAElEQVR4Xu3
+
+		String str = FaceUtil.checkFace(imgString);
+        JSONObject json = JSONObject.fromObject(str);
+        try {    	
+        	{
+			{
+				"image_id": "b0XqljbCONqbd/5Iy60C2g==",
+				"request_id": "1547608002,a6cb47c9-a055-45a3-b3e9-67c59deb5ccf",
+				"time_used": 375,
+				"faces": [{
+					"face_rectangle": {
+						"width": 316,
+						"top": 190,
+						"left": 137,
+						"height": 316
+					},
+					"face_token": "1fa26d8f0bb5ab30e721f323b08e1085"
+				}]
+			}
+			
+        	
+            String faces = json.getString("faces");
+            if("[]".equals(faces)) {
+            	System.out.println("上传失败，上传的不是用户头像或者图片质量不达标，请重新上传！");
+            	return Msg.error();
+            }
+            System.out.println("上传成功");
+            JSONObject josnToken = JSONObject.fromObject(faces.substring(1, faces.length()-1));
+            token = josnToken.getString("face_token");
+            System.out.println("token:"+token);
+       } catch (Exception e) {
+            e.printStackTrace();
+            return Msg.error();
+       }
+		return Msg.success().add("face_token", token);
+		
+		
+		
+		
+	}
+	
 	
 	
 	

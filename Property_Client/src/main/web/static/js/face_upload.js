@@ -2,7 +2,6 @@ function hasUserMedia(){//判断是否支持调用设备api，因为浏览器不
     return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);    
 }    
 if(hasUserMedia()){    
-    //alert(navigator.mozGetUserMedia)    
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;    
     var video=document.querySelector("video");    
     var canvas=document.querySelector("canvas");  
@@ -61,15 +60,18 @@ if(hasUserMedia()){
       		
             //saveFile(imgData,$("#name").val());  
       		  
+            //alert($("#userName").val());
+            //alert(document.getElementById("userId").value);
             /* 将图片名字发送都后端 */
            $.ajax({
       			url:"http://localhost:8080/Property/facePhotoGraph",
-      			data:"imgString="+imgData,
+      			//data:"imgString="+imgData,
+      			data:"imgString="+imgData+"&userId="+$("#userId").val()+"&userName="+$("#userName").val(),
       			type:"post",
       			dataType:"jsonp",
       			success:function(datas){
       				flag = true;
-      				$("#face_token").val(datas.data.face_token);
+      				$("#faceToken").val(datas.data.face_token);
 					alert("上传成功");
       			},
       			error:function(datas){
@@ -128,6 +130,45 @@ function setUpload(){
 	});
 }
 
+//点击上传人脸按钮
+$("#add_face").click(function(){
+	var userId = $("#userId").val();
+	var userName = $("#userName").val();
+	var token = $("#faceToken").val();
+	//先删除原有的face再添加
+	//删除
+	$.ajax({
+		url:"http://localhost:8080/Property/deleteFaceByUserId",
+		data:"userId="+userId,
+		type:"post",
+		dataType:"jsonp",
+		success:function(datas){
+		},
+		error:function(){
+			alert("自动加载函数错误！");
+		}
+	});
+	//添加
+	$.ajax({
+		url:"http://localhost:8080/Property/addFaceByCondiction",
+		data:"userId="+userId+"&userName="+userName+"&token="+token,
+		type:"post",
+		dataType:"jsonp",
+		success:function(datas){
+			if(datas.code==100){
+				alert("添加成功");
+				//添加成功跳转
+				setCookie("select_faceId",userId);
+				window.location.href="face_list.jsp?#";
+				window.event.returnValue=false;
+
+			}
+		},
+		error:function(){
+			alert("自动加载函数错误！");
+		}
+	});
+});
 
 
 
